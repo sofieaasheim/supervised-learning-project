@@ -11,7 +11,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 app.layout = html.Div([
-    html.H2('Hello World dette er en test'),
+    html.H2('Hello World dette er en test håper dette funker'),
     dcc.Dropdown(
         id='dropdown',
         options=[{'label': i, 'value': i} for i in ['LA', 'NYC', 'MTL']],
