@@ -1,1 +1,2 @@
-# supervised-learning-project
+# Supervised learning project
+
