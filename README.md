@@ -51,8 +51,8 @@ To import the data sets to the testing files in the `tests` folder, i.e. use the
 ```sh
 import pandas as pd
 
-math_df = pd.read_csv("./supervised-learning-project/data/student-mat.csv", sep=";")
-portugese_df = pd.read_csv("./supervised-learning-project/data/student-por.csv", sep=";")
+math_df = pd.read_csv("../supervised-learning-project/data/student-mat.csv", sep=";")
+portugese_df = pd.read_csv("../supervised-learning-project/data/student-por.csv", sep=";")
 ```
 
 When performing tests, make sure that you only push to the **tests** branch (or make a new branch). The **main** branch should only be used for pushing finished stuff.
