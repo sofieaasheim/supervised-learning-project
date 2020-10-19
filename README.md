@@ -15,6 +15,7 @@ pip install statsmodels
 pip install -U scikit-learn
 ```
 
+I recommend downloading and using [GitHub Desktop] when working with git and the project to make things a bit easier for yourself.
 
 ## Technologies
 In this project, we will use several technologies:
@@ -57,6 +58,8 @@ portugese_df = pd.read_csv("../supervised-learning-project/data/student-por.csv"
 
 When performing tests, make sure that you only push to the **tests** branch (or make a new branch). The **main** branch should only be used for pushing finished stuff.
 
+To run the application locally, type `python app.py` in the terminal while in the **supervised-learning-project** folder and go to http://127.0.0.1:8050/ in your browser.
+
 
 ## Deployment
 
@@ -71,3 +74,4 @@ The code is automatically deployed when pushing to the **main** branch. The web 
 [scikit-learn]: <https://scikit-learn.org/stable/>
 [statsmodels]: <https://www.statsmodels.org/stable/index.html>
 [virtual environment]: <https://www.geeksforgeeks.org/python-virtual-environment/>
+[GitHub Desktop]: <https://desktop.github.com/>
