@@ -44,7 +44,7 @@ More information about the data can be found in the `student.txt` file.
 
 ## Usage
 
-- The finished product will be in the `app.py` file. Do not edit this before having useful results. 
+- The finished product will be in the `app.py` file. If you edit this, make sure to push to the **tests** branch before pushing to **main**.
 - For experimentation and testing, create `.py` files in the `tests` folder.
 
 To import the data sets to the testing files in the `tests` folder, i.e. use the following:
