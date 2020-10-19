@@ -63,7 +63,7 @@ To run the application locally, type `python app.py` in the terminal while in th
 
 ## Deployment
 
-The code is automatically deployed when pushing to the **main** branch. The web page that can be found at https://tdt4173group9.herokuapp.com/.
+The code is automatically deployed when pushing to the **main** branch. The web page can be found at https://tdt4173group9.herokuapp.com/.
 
 
 
