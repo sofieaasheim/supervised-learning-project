@@ -19,9 +19,9 @@ pip install -U scikit-learn
 ## Technologies
 In this project, we will use several technologies:
 
-- Python – The programming language used in the project
-- Dash – A framework for building data visualisation web applications
-- Pandas – A data analysis Python library
+- **Python** – The programming language used in the project
+- **Dash** – A framework for building data visualisation web applications
+- **Pandas** – A data analysis Python library
 - [scikit-learn] and [statsmodels] – Tools such as classes and functions for predictive data analysis (useful for the multiple regression analysis)
 
 If you are unfamiliar with these, I reccommend doing the [Dash tutorial] and looking at the [10 minutes to pandas] short user guide.
@@ -55,12 +55,12 @@ math_df = pd.read_csv("./supervised-learning-project/data/student-mat.csv", sep=
 portugese_df = pd.read_csv("./supervised-learning-project/data/student-por.csv", sep=";")
 ```
 
-When performing tests, make sure that you only push to the "tests" branch, or make another branch. The "main" branch should only be used for pushing finished stuff.
+When performing tests, make sure that you only push to the **tests** branch (or make a new branch). The **main** branch should only be used for pushing finished stuff.
 
 
 ## Deployment
 
-The web page are automatically deployed when pushing to the "main" branch. This can be found at https://tdt4173group9.herokuapp.com/.
+The code is automatically deployed when pushing to the **main** branch. The web page that can be found at https://tdt4173group9.herokuapp.com/.
 
 
 
