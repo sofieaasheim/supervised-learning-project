@@ -12,6 +12,7 @@ To contribute to the project, first make a project directory locally on your com
 pip install pandas
 pip install dash
 pip install statsmodels
+pip install -U scikit-learn
 ```
 
 
