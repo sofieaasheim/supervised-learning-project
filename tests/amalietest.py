@@ -10,9 +10,12 @@ response_df = math_df[["G1", "G2", "G3"]]
 # Boolean variables
 math_df.replace(('yes', 'no'), (1, 0), inplace=True)
 
-# Dummie variables, test with sex column 
-sex_df = math_df[["sex"]]
-dummies = pd.get_dummies(sex_df)
-
-# print(math_df)
+# Dummie variables, test with all text columbs
+dummies_df = math_df[["school", "sex", "address", "famsize", "Pstatus", "Mjob", "Fjob", "reason", "guardian"]]
+dummies = pd.get_dummies(dummies_df)
 print(dummies)
+
+math_df = pd.concat([math_df, dummies], axis=1)
+math_df = math_df.drop(["school", "sex", "address", "famsize", "Pstatus", "Mjob", "Fjob", "reason", "guardian"], axis=1)
+
+print(math_df)
