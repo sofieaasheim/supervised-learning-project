@@ -14,7 +14,7 @@ style.use("ggplot")
 data = pd.read_csv("./supervised-learning-project/data/student-mat.csv", sep=";")
 
 # Trimming data 
-data = data[["G1", "G2", "absences","failures", "studytime","G3"]]
+data = data[["freetime", "age", "health", "Dalc", "Walc", "Medu", "Fedu", "G3"]]
 data = shuffle(data) # Optional - shuffle the data
 
 # Separating data 
@@ -60,15 +60,22 @@ print("-------------------------")
 
 # List of all predictions
 print("List of predictions:")
-predicted= linear.predict(x_test)
+predicted = linear.predict(x_test)
+#predicted_data = list[]
 for x in range(len(predicted)):
     print(predicted[x], x_test[x], y_test[x])
-
+    #predicted_data.append(predicted[x])
+#printe
 
 # Drawing and plotting model
-plot = "failures"
+plot = "Fedu"
 plt.scatter(data[plot], data["G3"])
 plt.legend(loc=4)
 plt.xlabel(plot)
 plt.ylabel("Final Grade")
 plt.show()
+
+
+# Plotting predicted grade against grade
+
+#plt.scatter(predicted)

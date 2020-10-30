@@ -17,7 +17,7 @@ math_df.replace(('yes', 'no'), (1, 0), inplace=True)
 # Dummie variables, test with all text columbs
 dummies_df = math_df[["school", "sex", "address", "famsize", "Pstatus", "Mjob", "Fjob", "reason", "guardian"]]
 dummies = pd.get_dummies(dummies_df)
-print(dummies)
+print(dummies
 
 # Exchanging string variables with dimmy variables
 math_df = pd.concat([math_df, dummies], axis=1)
