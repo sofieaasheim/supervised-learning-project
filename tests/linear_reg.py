@@ -10,15 +10,20 @@ import pickle
 
 style.use("ggplot")
 
+# Loading data 
 data = pd.read_csv("./supervised-learning-project/data/student-mat.csv", sep=";")
 
-predict = "G3"
-
+# Trimming data 
 data = data[["G1", "G2", "absences","failures", "studytime","G3"]]
 data = shuffle(data) # Optional - shuffle the data
 
-x = np.array(data.drop([predict], 1))
-y =np.array(data[predict])
+# Separating data 
+predict = "G3" # = respons
+
+x = np.array(data.drop([predict], 1)) # parameters
+y = np.array(data[predict]) # respons
+
+# Splitting in testing and training sets 
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
 
@@ -27,6 +32,7 @@ best = 0
 for _ in range(20):
     x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
+    # Implementing linear regression 
     linear = linear_model.LinearRegression()
 
     linear.fit(x_train, y_train)
@@ -35,8 +41,12 @@ for _ in range(20):
 
     if acc > best:
         best = acc
-        with open("studentgrades.pickle", "wb") as f:
+        with open("studentgrades.pickle", "wb") as f: # Saving the model if it has a better score than one we've already trained
             pickle.dump(linear, f)
+
+print("Best accuracy:")
+print(best)
+
 
 # LOAD MODEL
 pickle_in = open("studentgrades.pickle", "rb")
@@ -44,10 +54,12 @@ linear = pickle.load(pickle_in)
 
 
 print("-------------------------")
-print('Coefficient: \n', linear.coef_)
-print('Intercept: \n', linear.intercept_)
+print('Coefficient: \n', linear.coef_) # each slope value
+print('Intercept: \n', linear.intercept_) 
 print("-------------------------")
 
+# List of all predictions
+print("List of predictions:")
 predicted= linear.predict(x_test)
 for x in range(len(predicted)):
     print(predicted[x], x_test[x], y_test[x])
