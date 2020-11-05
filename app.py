@@ -8,13 +8,10 @@ import dash
 from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
-import sys
-sys.path.insert(1, "./data/student-mat.csv")
-sys.path.insert(1, "./data/student-por.csv")
-print(sys.path)
-
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+math_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/student-mat.csv'
+por_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/student-por.csv'
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -27,8 +24,8 @@ data from the data sets.
 """
 
 # Import the entire data sets
-math_df = pd.read_csv("./data/student-mat.csv", sep=";")
-portugese_df = pd.read_csv("./data/student-por.csv", sep=";")
+math_df = pd.read_csv(math_url, sep=";")
+portugese_df = pd.read_csv(por_url, sep=";")
 
 parameter_list =['studytime', 'failures', 'Dalc', 'absences']
 
