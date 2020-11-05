@@ -8,6 +8,11 @@ import dash
 from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
+import sys
+sys.path.insert(1, "./data/student-mat.csv")
+sys.path.insert(1, "./data/student-por.csv")
+print(sys.path)
+
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
