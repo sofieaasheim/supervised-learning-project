@@ -27,11 +27,15 @@ data from the data sets.
 math_df = pd.read_csv(math_url, sep=";")
 portugese_df = pd.read_csv(por_url, sep=";")
 
-parameter_list =['studytime', 'failures', 'Dalc', 'absences']
+# Merge dataframes
+df = math_df.append(portugese_df)
+df.replace(('yes', 'no'), (1, 0), inplace=True)
+
+parameter_list =['age', 'traveltime', 'studytime', 'failures', 'Dalc', 'absences', 'higher']
 
 def linear_prediction_model(parameter_list, selected_values):
-    X = portugese_df[parameter_list]
-    y = portugese_df["G3"]
+    X = df[parameter_list]
+    y = df["G3"]
 
     regr = linear_model.LinearRegression()
     regr.fit(X, y)
@@ -41,43 +45,82 @@ def linear_prediction_model(parameter_list, selected_values):
 
 
 """ LAYOUT """
-app.layout = html.Div([
-    html.H2('Predict your final grade'),
-    html.Div(
-        "This is a tool for predicting your final grade based on different factors. " +
-        "The grades goes from 0 to 20, which is the Portugese grading system."
-    ),
-    html.H5("Studytime"),
-    html.Div("Select your weekly study time. 1: less than 2 hours, 2: 2-5 hours, 3: 5 to 10 hours or 4: more than 10 hours"),
-    dcc.Dropdown(
-        id='studytime',
-        options=[{'label': i, 'value': i} for i in [1, 2, 3, 4]],
-        value=1
-    ),
-    html.H5("Failures"),
-    html.Div("Select the number of your past class failures."),
-    dcc.Dropdown(
-        id='failures',
-        options=[{'label': i, 'value': i} for i in [0, 1, 2, 3, 4]],
-        value=0
-    ),
-    html.H5("Alcohol consumption"),
-    html.Div("Rate your workday alchol consumption. 1 = very low, 5 = very high."),
-    dcc.Dropdown(
-        id='Dalc',
-        options=[{'label': i, 'value': i} for i in [1, 2, 3, 4, 5]],
-        value=1
-    ),
-    html.H5("Absences"),
-    html.Div("Select your number of absences the last year"),
-    dcc.Dropdown(
-        id='absences',
-        options=[{'label': i, 'value': i} for i in range(0, 94)],
-        value=0
-    ),
-    html.H4("The predicted grade is: "),
-    html.H4(id='prediction')
-])
+app.layout = html.Div(
+    [
+        html.H2('Predict your final grade'),
+        html.Div(
+            "This is a tool for predicting your final grade based on different factors. " +
+            "The grades goes from 0 to 20, which is the Portugese grading system."
+        ),
+        html.H5("Age"),
+        html.Div("Select your age:"),
+        dcc.Dropdown(
+            id='age',
+            options=[{'label': i, 'value': i} for i in [15, 16, 17, 18, 19, 20, 21, 22]],
+            value=15
+        ),
+        html.H5("Traveltime"),
+        html.Div("Select your travel time from home to school:"),
+        dcc.RadioItems(
+            id='traveltime',
+            options=[
+                {'label': 'Less than 15 min  ', 'value': 1},
+                {'label': '15-30 min  ', 'value': 2},
+                {'label': '30 min-1 hour  ', 'value': 3},
+                {'label': 'More than 1 hour  ', 'value': 4}
+            ],
+            value=1,
+            labelStyle={'display': 'inline-block'}
+        ),
+        html.H5("Studytime"),
+        html.Div("Select your weekly study time:"),
+        dcc.RadioItems(
+            id='studytime',
+            options=[
+                {'label': 'Less than 2 hours', 'value': 1},
+                {'label': '2-5 hours', 'value': 2},
+                {'label': '5-10 hours', 'value': 3},
+                {'label': 'More than 10 hours', 'value': 4}
+            ],
+            value=1,
+            labelStyle={'display': 'inline-block'}
+        ),
+        html.H5("Failures"),
+        html.Div("Select the number of your past class failures:"),
+        dcc.Dropdown(
+            id='failures',
+            options=[{'label': i, 'value': i} for i in [0, 1, 2, 3, 4]],
+            value=0
+        ),
+        html.H5("Alcohol consumption"),
+        html.Div("Rate your workday alchol consumption. (1 = very low, 5 = very high)"),
+        dcc.Dropdown(
+            id='Dalc',
+            options=[{'label': i, 'value': i} for i in [1, 2, 3, 4, 5]],
+            value=1
+        ),
+        html.H5("Absences"),
+        html.Div("Select your number of absences the last year"),
+        dcc.Dropdown(
+            id='absences',
+            options=[{'label': i, 'value': i} for i in range(0, 94)],
+            value=0
+        ),
+        html.H5("Higher education"),
+        html.Div("Do you want to take higher education?"),
+        dcc.RadioItems(
+            id='higher',
+            options=[
+                {'label': 'Yes', 'value': 1},
+                {'label': 'No', 'value': 0},
+            ],
+            value=0,
+            labelStyle={'display': 'inline-block'}
+        ),
+        html.H4("The predicted grade is: "),
+        html.H4(id='prediction')
+    ], className="one-half column"
+)
 
 
 """
@@ -88,14 +131,17 @@ This function changes the values of the parameters used in the prediction
 @app.callback(
         Output('prediction', 'children'),
     [
+        Input('age', 'value'),
+        Input('traveltime', 'value'),
         Input('studytime', 'value'),
         Input('failures', 'value'),
         Input('Dalc', 'value'),
         Input('absences', 'value'),
+        Input('higher', 'value')
     ]
 )
-def get_prediction_result(studytime, failures, Dalc, absences):
-    selected_values = [studytime, failures, Dalc, absences]
+def get_prediction_result(age, traveltime, studytime, failures, Dalc, absences, higher):
+    selected_values = [age, traveltime, studytime, failures, Dalc, absences, higher]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 
