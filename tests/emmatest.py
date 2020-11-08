@@ -13,6 +13,8 @@ dataset = pd.read_csv("../supervised-learning-project/data/life-expectancy.csv",
 #Fjern kolonner
 dataset.drop(['AdultMortality', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'Measles', 'BMI', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9', 'Income', 'Schooling'], axis=1, inplace=True)
 
+# Fiks 'status' kolonnen
+dataset.replace(('Developing', 'Developed'), (0, 1), inplace=True)
 
 #Creating initial dataframe
 countrynames = dataset["Country"].unique()
@@ -38,13 +40,14 @@ country_df = country_df.join(enc_df1)
 country_df
 # merge with dataset on key values
 dataset = dataset.merge(country_df)
-dataset.drop(['Country','Year', 'Status'], axis=1, inplace=True)
+dataset.drop(['Country','Year'], axis=1, inplace=True)
 print(dataset)
 dataset.dropna(inplace=True)
 
 print(dataset)
-X = dataset.iloc[:, 1:194].values
-y = dataset.iloc[:, 0].values
+X = dataset.iloc[:,:].values
+X = np.delete(X, 1, 1)
+y = dataset.iloc[:, 1].values
 
 
 #Splitting data into test and training data
