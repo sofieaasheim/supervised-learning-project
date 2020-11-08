@@ -28,17 +28,17 @@ df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
 df_regr = df[np.isfinite(df).all(1)]
 
 all_parameters = [
-    'Adult mortality','Infant deaths','Alcohol','Percentage expenditure', 'Hepatitis B',
-    'Measles','BMI','Under five deaths','Polio','Total expenditure', 'Diphtheria','HIV/AIDS',
-    'GDP','Population','Thinness 1 to 19','Thinness 5 to 9','HDI income','Schooling'
+    'AdultMortality','InfantDeaths','Alcohol','PercentageExpenditure', 'HepatitisB',
+    'Measles','BMI','UnderFiveDeaths','Polio','TotalExpenditure', 'Diphtheria','HIVAIDS',
+    'GDP','Population','Thinness1_19','Thinness5_9','Income','Schooling'
     ]
 
 # Parameters with linearity
-parameter_list = ['Schooling', 'HDI income', 'Adult mortality']
+parameter_list = ['Schooling', 'Income', 'AdultMortality']
 
 def linear_prediction_model(parameter_list, selected_values):
     X = df_regr[parameter_list].round(2)
-    y = df_regr['Life expectancy'].round(2)
+    y = df_regr['LifeExpectancy'].round(2)
 
     regr = linear_model.LinearRegression()
     regr.fit(X, y)
@@ -128,11 +128,10 @@ def get_prediction_result(schooling, hdi_income, adult_mortality):
 )
 def make_correlation_graph(select_parameter):
     X = df_regr[select_parameter].round(2)
-    y = df_regr['Life expectancy'].round(2)
+    y = df_regr['LifeExpectancy'].round(2)
     fig = go.Figure(data=go.Scatter(x=X, y=y, mode='markers'))
     fig.update_layout(
-        yaxis_title="Life expectancy",
-        xaxis_title="{select_parameter}"
+        yaxis_title="Life expectancy"
     )
     return fig
 
