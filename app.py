@@ -10,8 +10,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-math_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/student-mat.csv'
-por_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/student-por.csv'
+data_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/life-exp/data/life-expectancy.csv'
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -20,22 +19,19 @@ server = app.server
 """
 REGRESSION PREDICTION MODEL
 The function linear_prediction_model makes a predictive model using linear regression and
-data from the data sets.
+data from the data set.
 """
 
 # Import the entire data sets
-math_df = pd.read_csv(math_url, sep=";")
-portugese_df = pd.read_csv(por_url, sep=";")
-
-# Merge dataframes
-df = math_df.append(portugese_df)
-df.replace(('yes', 'no'), (1, 0), inplace=True)
-
-parameter_list =['traveltime', 'studytime', 'failures', 'Dalc', 'absences', 'higher']
+df = pd.read_csv(data_url, sep=",")
+df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
+df_regr = df[np.isfinite(df).all(1)]
+# Parameters with linearity
+parameter_list = ['Schooling', 'Income', 'AdultMortality']
 
 def linear_prediction_model(parameter_list, selected_values):
-    X = df[parameter_list]
-    y = df["G3"]
+    X = df_regr[parameter_list].round(2)
+    y = df_regr['LifeExpectancy'].round(2)
 
     regr = linear_model.LinearRegression()
     regr.fit(X, y)
@@ -47,70 +43,38 @@ def linear_prediction_model(parameter_list, selected_values):
 """ LAYOUT """
 app.layout = html.Div(
     [
-        html.H2('Predict your final grade'),
+        html.H2('Life expectancy'),
         html.Div(
-            "This is a tool for predicting your final grade based on different factors. " +
-            "The grades goes from 0 to 20, which is the Portugese grading system."
+            "This is a tool for predicting the life expectancy of the population in your country"
         ),
-        html.H5("Traveltime"),
-        html.Div("Select your travel time from home to school:"),
-        dcc.RadioItems(
-            id='traveltime',
-            options=[
-                {'label': 'Less than 15 min  ', 'value': 1},
-                {'label': '15-30 min  ', 'value': 2},
-                {'label': '30 min-1 hour  ', 'value': 3},
-                {'label': 'More than 1 hour  ', 'value': 4}
-            ],
-            value=1,
-            labelStyle={'display': 'inline-block'}
-        ),
-        html.H5("Studytime"),
-        html.Div("Select your weekly study time:"),
-        dcc.RadioItems(
-            id='studytime',
-            options=[
-                {'label': 'Less than 2 hours', 'value': 1},
-                {'label': '2-5 hours', 'value': 2},
-                {'label': '5-10 hours', 'value': 3},
-                {'label': 'More than 10 hours', 'value': 4}
-            ],
-            value=1,
-            labelStyle={'display': 'inline-block'}
-        ),
-        html.H5("Failures"),
-        html.Div("Select the number of your past class failures:"),
+        html.H5("Schooling"),
+        html.Div("Select the average number of schooling years:"),
         dcc.Dropdown(
-            id='failures',
-            options=[{'label': i, 'value': i} for i in [0, 1, 2, 3, 4]],
+            id='schooling',
+            options=[{'label': i, 'value': i} for i in range(0,22)],
             value=0
         ),
-        html.H5("Alcohol consumption"),
-        html.Div("Rate your workday alchol consumption. (1 = very low, 5 = very high)"),
-        dcc.Dropdown(
-            id='Dalc',
-            options=[{'label': i, 'value': i} for i in [1, 2, 3, 4, 5]],
-            value=1
-        ),
-        html.H5("Absences"),
-        html.Div("Select your number of absences the last year"),
-        dcc.Dropdown(
-            id='absences',
-            options=[{'label': i, 'value': i} for i in range(0, 94)],
-            value=0
-        ),
-        html.H5("Higher education"),
-        html.Div("Do you want to take higher education?"),
-        dcc.RadioItems(
-            id='higher',
-            options=[
-                {'label': 'Yes', 'value': 1},
-                {'label': 'No', 'value': 0},
-            ],
+        html.H5("HDI"),
+        html.Div("Select your Human Development Index (HDI) in terms of income composition of resources:"),
+        dcc.Slider(
+            id='hdi-income',
+            min=0,
+            max=1,
+            step=0.01,
             value=0,
-            labelStyle={'display': 'inline-block'}
+            marks={0:'0', 0.1:'0.1', 0.2:'0.2', 0.3:'0.3', 0.4:'0.4', 0.5:'0.5', 0.6:'0.6', 0.7:'0.7', 0.8:'0.8', 0.9:'0.9', 1:'1'}
         ),
-        html.H4("The predicted grade is: "),
+        html.H5("Adult mortality"),
+        html.Div("Select the adult mortality rate per 1000 population: "),
+        dcc.Slider(
+            id='adult-mortality',
+            min=0,
+            max=1000,
+            step=10,
+            value=0,
+            marks={0:'0', 100:'100', 200:'200', 300:'300', 400:'400', 500:'500', 600:'600', 700:'700', 800:'800', 900:'900', 1000:'1000'}
+        ),
+        html.H4("The predicted life expectancy is: "),
         html.H4(id='prediction')
     ], className="one-half column"
 )
@@ -124,16 +88,13 @@ This function changes the values of the parameters used in the prediction
 @app.callback(
         Output('prediction', 'children'),
     [
-        Input('traveltime', 'value'),
-        Input('studytime', 'value'),
-        Input('failures', 'value'),
-        Input('Dalc', 'value'),
-        Input('absences', 'value'),
-        Input('higher', 'value')
+        Input('schooling', 'value'),
+        Input('hdi-income', 'value'),
+        Input('adult-mortality', 'value')
     ]
 )
-def get_prediction_result(traveltime, studytime, failures, Dalc, absences, higher):
-    selected_values = [traveltime, studytime, failures, Dalc, absences, higher]
+def get_prediction_result(schooling, hdi_income, adult_mortality):
+    selected_values = [schooling, hdi_income, adult_mortality]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 
