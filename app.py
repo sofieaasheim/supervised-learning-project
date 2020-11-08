@@ -31,7 +31,7 @@ portugese_df = pd.read_csv(por_url, sep=";")
 df = math_df.append(portugese_df)
 df.replace(('yes', 'no'), (1, 0), inplace=True)
 
-parameter_list =['age', 'traveltime', 'studytime', 'failures', 'Dalc', 'absences', 'higher']
+parameter_list =['traveltime', 'studytime', 'failures', 'Dalc', 'absences', 'higher']
 
 def linear_prediction_model(parameter_list, selected_values):
     X = df[parameter_list]
@@ -51,13 +51,6 @@ app.layout = html.Div(
         html.Div(
             "This is a tool for predicting your final grade based on different factors. " +
             "The grades goes from 0 to 20, which is the Portugese grading system."
-        ),
-        html.H5("Age"),
-        html.Div("Select your age:"),
-        dcc.Dropdown(
-            id='age',
-            options=[{'label': i, 'value': i} for i in [15, 16, 17, 18, 19, 20, 21, 22]],
-            value=15
         ),
         html.H5("Traveltime"),
         html.Div("Select your travel time from home to school:"),
@@ -131,7 +124,6 @@ This function changes the values of the parameters used in the prediction
 @app.callback(
         Output('prediction', 'children'),
     [
-        Input('age', 'value'),
         Input('traveltime', 'value'),
         Input('studytime', 'value'),
         Input('failures', 'value'),
@@ -140,8 +132,8 @@ This function changes the values of the parameters used in the prediction
         Input('higher', 'value')
     ]
 )
-def get_prediction_result(age, traveltime, studytime, failures, Dalc, absences, higher):
-    selected_values = [age, traveltime, studytime, failures, Dalc, absences, higher]
+def get_prediction_result(traveltime, studytime, failures, Dalc, absences, higher):
+    selected_values = [traveltime, studytime, failures, Dalc, absences, higher]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 
