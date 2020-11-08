@@ -10,7 +10,6 @@ from sklearn.preprocessing import StandardScaler
 # Import the entire data sets
 dataset = pd.read_csv("../supervised-learning-project/data/life-expectancy.csv", sep=",")
 
-
 #Fjern kolonner
 dataset.drop(['AdultMortality', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'Measles', 'BMI', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9', 'Income', 'Schooling'], axis=1, inplace=True)
 
@@ -18,9 +17,11 @@ dataset.drop(['AdultMortality', 'InfantDeaths', 'Alcohol', 'PercentageExpenditur
 #Creating initial dataframe
 countrynames = dataset["Country"].unique()
 country_df = pd.DataFrame(countrynames, columns=['Country'])
+statustypes = dataset["Status"].unique()
+status_df =pd.DataFrame(statustypes, columns=['Status'])
 
-# converting type of columns to 'category'
-#country_df['Country'] = country_df['Country'].astype('category')
+# # converting type of columns to 'category'
+# #country_df['Country'] = country_df['Country'].astype('category')
 
 # creating instance of labelencoder
 labelencoder = LabelEncoder()
@@ -31,16 +32,17 @@ country_df
 # creating instance of one-hot-encoder
 enc = OneHotEncoder(handle_unknown='ignore')
 # passing country-cat column (label encoded values of country)
-enc_df = pd.DataFrame(enc.fit_transform(country_df[['Country_Cat']]).toarray())
+enc_df1 = pd.DataFrame(enc.fit_transform(country_df[['Country_Cat']]).toarray())
 # merge with  country_df  on key values
-country_df = country_df.join(enc_df)
+country_df = country_df.join(enc_df1)
 country_df
 # merge with dataset on key values
 dataset = dataset.merge(country_df)
 dataset.drop(['Country','Year', 'Status'], axis=1, inplace=True)
+print(dataset)
+dataset.dropna(inplace=True)
 
-
-
+print(dataset)
 X = dataset.iloc[:, 1:194].values
 y = dataset.iloc[:, 0].values
 
@@ -56,21 +58,22 @@ sc_y = StandardScaler()
 #y_train = sc_y.fit_transform(y_train)
 print(X_train.shape)
 print(y_train.shape)
-# regr = LinearRegression()
-# regr.fit(X_train, y_train)
+regr = LinearRegression()
+regr.fit(X_train, y_train)
 
-# print(regr.coef_)
+print(regr.coef_)
 
-# print(regr)
+print(regr)
 
-# Make predictions
-# expected = y_test
-# predicted = regr.predict(X_test)
+#Make predictions
+expected = y_test
+predicted = regr.predict(X_test)
 
-# print(predicted)
+print(expected)
+print(predicted)
 
 
 # Summarize the fit of the model
-#mse = np.mean((predicted-expected)**2)
-# print (regr.intercept_, regr.coef_, mse) 
-# print(regr.score(X_train, y_train))
+mse = np.mean((predicted-expected)**2)
+#print (regr.intercept_, regr.coef_, mse) 
+print(regr.score(X_train, y_train))
