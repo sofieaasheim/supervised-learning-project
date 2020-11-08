@@ -26,12 +26,19 @@ data from the data set.
 df = pd.read_csv(data_url, sep=",")
 df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
 df_regr = df[np.isfinite(df).all(1)]
+
+all_parameters = [
+    'Adult mortality','Infant deaths','Alcohol','Percentage expenditure', 'Hepatitis B',
+    'Measles','BMI','Under five deaths','Polio','Total expenditure', 'Diphtheria','HIV/AIDS',
+    'GDP','Population','Thinness 1 to 19','Thinness 5 to 9','HDI income','Schooling'
+    ]
+
 # Parameters with linearity
-parameter_list = ['Schooling', 'Income', 'AdultMortality']
+parameter_list = ['Schooling', 'HDI income', 'Adult mortality']
 
 def linear_prediction_model(parameter_list, selected_values):
     X = df_regr[parameter_list].round(2)
-    y = df_regr['LifeExpectancy'].round(2)
+    y = df_regr['Life expectancy'].round(2)
 
     regr = linear_model.LinearRegression()
     regr.fit(X, y)
@@ -41,11 +48,13 @@ def linear_prediction_model(parameter_list, selected_values):
 
 
 """ LAYOUT """
-app.layout = html.Div(
-    [
-        html.H2('Life expectancy'),
+
+app.layout = html.Div([
+    html.Div([
+        html.H2('Life expectancy prediction'),
         html.Div(
-            "This is a tool for predicting the life expectancy of the population in your country"
+            "This is a tool for predicting the life expectancy of the population in your country. The prediction"
+            + "model is built from a multiple linear regression on a data set from WHO."
         ),
         html.H5("Schooling"),
         html.Div("Select the average number of schooling years:"),
@@ -74,19 +83,32 @@ app.layout = html.Div(
             value=0,
             marks={0:'0', 100:'100', 200:'200', 300:'300', 400:'400', 500:'500', 600:'600', 700:'700', 800:'800', 900:'900', 1000:'1000'}
         ),
-        html.H4("The predicted life expectancy is: "),
-        html.H4(id='prediction')
-    ], className="one-half column"
-)
-
+        html.H4("The predicted life expectancy in years is: "),
+        html.H4(id='prediction'),
+    ], className="six columns"),
+    
+    html.Div([
+        html.H2('Correlation between a selected parmeter and the life expectancy'),
+        html.Div(
+            "This is a visualization of the raw data from the data sets."
+        ),
+        dcc.Dropdown(
+            id='select-parameter',
+            options=[{'label': i, 'value': i} for i in all_parameters],
+            value='AdultMortality'
+        ),
+        html.Div(dcc.Graph(id='correlation-plot'))
+    ], className="six columns")
+])
 
 """
-CALLBACK FUNCTION
-This function changes the values of the parameters used in the prediction
+CALLBACK FUNCTIONS
+Thede function changes the values of the parameters used in the prediction, and
+changes the plots
 """
 
 @app.callback(
-        Output('prediction', 'children'),
+    Output('prediction', 'children'),
     [
         Input('schooling', 'value'),
         Input('hdi-income', 'value'),
@@ -98,6 +120,21 @@ def get_prediction_result(schooling, hdi_income, adult_mortality):
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 
+@app.callback(
+    Output('correlation-plot', 'figure'),
+    [
+        Input('select-parameter', 'value')
+    ]
+)
+def make_correlation_graph(select_parameter):
+    X = df_regr[select_parameter].round(2)
+    y = df_regr['Life expectancy'].round(2)
+    fig = go.Figure(data=go.Scatter(x=X, y=y, mode='markers'))
+    fig.update_layout(
+        yaxis_title="Life expectancy",
+        xaxis_title="{select_parameter}"
+    )
+    return fig
 
 if __name__ == '__main__':
     app.run_server(debug=True)
