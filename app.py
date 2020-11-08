@@ -10,8 +10,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-math_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/student-mat.csv'
-por_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/student-por.csv'
+data_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/test/data/life-expectancy.csv'
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -20,18 +19,31 @@ server = app.server
 """
 REGRESSION PREDICTION MODEL
 The function linear_prediction_model makes a predictive model using linear regression and
-data from the data sets.
+data from the data set.
 """
 
 # Import the entire data sets
-math_df = pd.read_csv(math_url, sep=";")
-portugese_df = pd.read_csv(por_url, sep=";")
+df = pd.read_csv(data_url, sep=",")
+df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
+df_regr = df[np.isfinite(df).all(1)]
 
-parameter_list =['studytime', 'failures', 'Dalc', 'absences']
+all_parameters = [
+    'AdultMortality','InfantDeaths','Alcohol','PercentageExpenditure', 'HepatitisB',
+    'Measles','BMI','UnderFiveDeaths','Polio','TotalExpenditure', 'Diphtheria','HIVAIDS',
+    'GDP','Population','Thinness1_19','Thinness5_9','Income','Schooling'
+    ]
+parameter_names = [
+    'Adult mortality','Infant deaths','Alcohol','Percentage expenditure', 'Hepatitis B',
+    'Measles','BMI','Under-5 deaths','Polio','Total expenditure', 'Diphtheria','HIV/AIDS',
+    'GDP','Population','Thinness age 1 to 19','Thinness age 5 to 9','HDI income','Schooling'
+    ]
+
+# Parameters with linearity
+parameter_list = ['Schooling', 'Income', 'AdultMortality']
 
 def linear_prediction_model(parameter_list, selected_values):
-    X = portugese_df[parameter_list]
-    y = portugese_df["G3"]
+    X = df_regr[parameter_list].round(2)
+    y = df_regr['LifeExpectancy'].round(2)
 
     regr = linear_model.LinearRegression()
     regr.fit(X, y)
@@ -41,65 +53,94 @@ def linear_prediction_model(parameter_list, selected_values):
 
 
 """ LAYOUT """
+
 app.layout = html.Div([
-    html.H2('Predict your final grade'),
-    html.Div(
-        "This is a tool for predicting your final grade based on different factors. " +
-        "The grades goes from 0 to 20, which is the Portugese grading system."
-    ),
-    html.H5("Studytime"),
-    html.Div("Select your weekly study time. 1: less than 2 hours, 2: 2-5 hours, 3: 5 to 10 hours or 4: more than 10 hours"),
-    dcc.Dropdown(
-        id='studytime',
-        options=[{'label': i, 'value': i} for i in [1, 2, 3, 4]],
-        value=1
-    ),
-    html.H5("Failures"),
-    html.Div("Select the number of your past class failures."),
-    dcc.Dropdown(
-        id='failures',
-        options=[{'label': i, 'value': i} for i in [0, 1, 2, 3, 4]],
-        value=0
-    ),
-    html.H5("Alcohol consumption"),
-    html.Div("Rate your workday alchol consumption. 1 = very low, 5 = very high."),
-    dcc.Dropdown(
-        id='Dalc',
-        options=[{'label': i, 'value': i} for i in [1, 2, 3, 4, 5]],
-        value=1
-    ),
-    html.H5("Absences"),
-    html.Div("Select your number of absences the last year"),
-    dcc.Dropdown(
-        id='absences',
-        options=[{'label': i, 'value': i} for i in range(0, 94)],
-        value=0
-    ),
-    html.H4("The predicted grade is: "),
-    html.H4(id='prediction')
+    html.Div([
+        html.H2('Life expectancy prediction'),
+        html.Div(
+            "This is a tool for predicting the life expectancy of the population in your country. The prediction"
+            + "model is built from a multiple linear regression on a data set from WHO."
+        ),
+        html.H5("Schooling"),
+        html.Div("Select the average number of schooling years:"),
+        dcc.Dropdown(
+            id='schooling',
+            options=[{'label': i, 'value': i} for i in range(0,22)],
+            value=0
+        ),
+        html.H5("HDI"),
+        html.Div("Select your Human Development Index (HDI) in terms of income composition of resources:"),
+        dcc.Slider(
+            id='hdi-income',
+            min=0,
+            max=1,
+            step=0.01,
+            value=0,
+            marks={0:'0', 0.1:'0.1', 0.2:'0.2', 0.3:'0.3', 0.4:'0.4', 0.5:'0.5', 0.6:'0.6', 0.7:'0.7', 0.8:'0.8', 0.9:'0.9', 1:'1'}
+        ),
+        html.H5("Adult mortality"),
+        html.Div("Select the adult mortality rate per 1000 population: "),
+        dcc.Slider(
+            id='adult-mortality',
+            min=0,
+            max=1000,
+            step=10,
+            value=0,
+            marks={0:'0', 100:'100', 200:'200', 300:'300', 400:'400', 500:'500', 600:'600', 700:'700', 800:'800', 900:'900', 1000:'1000'}
+        ),
+        html.H4("The predicted life expectancy in years is: "),
+        html.H4(id='prediction'),
+    ], className="six columns"),
+    
+    html.Div([
+        html.H2('Correlation between a selected parmeter and the life expectancy'),
+        html.Div(
+            "This is a visualization of the raw data from the data sets. " +
+            "Select a parameter:"
+        ),
+        dcc.Dropdown(
+            id='select-parameter',
+            options=[{'label': i, 'value': j} for i,j in zip(parameter_names, all_parameters)],
+            value='AdultMortality'
+        ),
+        html.Div(dcc.Graph(id='correlation-plot'))
+    ], className="six columns")
 ])
 
-
 """
-CALLBACK FUNCTION
-This function changes the values of the parameters used in the prediction
+CALLBACK FUNCTIONS
+Thede function changes the values of the parameters used in the prediction, and
+changes the plots
 """
 
 @app.callback(
-        Output('prediction', 'children'),
+    Output('prediction', 'children'),
     [
-        Input('studytime', 'value'),
-        Input('failures', 'value'),
-        Input('Dalc', 'value'),
-        Input('absences', 'value'),
+        Input('schooling', 'value'),
+        Input('hdi-income', 'value'),
+        Input('adult-mortality', 'value')
     ]
 )
-def get_prediction_result(studytime, failures, Dalc, absences):
-    selected_values = [studytime, failures, Dalc, absences]
+def get_prediction_result(schooling, hdi_income, adult_mortality):
+    selected_values = [schooling, hdi_income, adult_mortality]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 
+@app.callback(
+    Output('correlation-plot', 'figure'),
+    [
+        Input('select-parameter', 'value')
+    ]
+)
+def make_correlation_graph(select_parameter):
+    X = df_regr[select_parameter].round(2)
+    y = df_regr['LifeExpectancy'].round(2)
+    fig = go.Figure(data=go.Scatter(x=X, y=y, mode='markers'))
+    fig.update_layout(
+        yaxis_title="Life expectancy",
+        xaxis_title=f"{select_parameter}"
+    )
+    return fig
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-

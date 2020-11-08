@@ -1,0 +1,26 @@
+LIFE EXPECTANCY DATA
+
+The attributes for the life-expectancy.csv data set:
+
+1 Country – Country of measurement (string)
+2 Year – Year of measurement (numeric)
+3 Status – Developed or Developing status (binary: Developed or Developing)
+4 LifeExpectancy – Life expectancy in age (numeric: 36.3-89)
+5 AdultMortality – Adult Mortality Rates of both sexes - probability of dying between 15 and 60 years per 1000 population (numeric: 0-1000)
+6 InfantDeaths - Number of infant deaths per 1000 population (numeric: 1-1000)
+7 Alcohol – Alcohol consumtion recorded per capita (15+) in litres of pure alchohol (0-18)
+8 PercentageExpenditure – Expenditure on health as a percentage of Gross Domestic Product per capita (numeric: %)
+9 HepatitisB – Hepatitis B immunization coverage among 1-year-olds (numeric: %)
+10 Measles – Number of reported measles cases per 1000 population (numeric: 0-1000)
+11 BMI – Average Body Mass Index of entire population (numeric: 1-100)
+12 UnderFiveDeaths – Number of under-five deaths per 1000 population (numeric: 1-1000)
+13 Polio – Polio immunization coverage among 1-year-olds (numeric: %)
+14 TotalExpenditure – General government expenditure on health as a percentage of total government expenditure (numeric: %)
+15 Diphtheria – Diphtheria tetanus toxoid and pertussis (DTP3) immunization coverage among 1-year-olds (numeric: %)
+16 HIVAIDS – Deaths per 1000 live births HIV/AIDS 0-4 years (numeric: 0-1000)
+17 GDP – Gross Domestic Product per capita in USD (numeric: 0-119 000)
+18 Population – Population of the country (numeric)
+19 Thinness1_19 – Prevalence of thinness among children and adolescents for age 10 to 19 (numeric: %) 
+20 Thinness5_9 – Prevalence of thinness among children for Age 5 to 9 (numeric: %)
+21 Income – Human Development Index in terms of income composition of resources (numeric: 0-1)
+22 Schooling – Number of years of schooling (numeric: 0-21)
