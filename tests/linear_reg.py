@@ -1,81 +1,42 @@
-#Import Library
-import numpy as np
 import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
 from sklearn import linear_model
-import sklearn
-from sklearn.utils import shuffle
-import matplotlib.pyplot as plt
-from matplotlib import style
-import pickle
+import statsmodels.api as sm
 
-style.use("ggplot")
+# Import the entire data sets
+df = pd.read_csv("../data/life-expectancy.csv", sep=",")
+df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
+df_regr = df[np.isfinite(df).all(1)]
 
-# Loading data 
-data = pd.read_csv("./supervised-learning-project/data/student-mat.csv", sep=";")
-
-# Trimming data 
-data = data[["freetime", "age", "health", "Dalc", "Walc", "Medu", "Fedu", "G3"]]
-data = shuffle(data) # Optional - shuffle the data
-
-# Separating data 
-predict = "G3" # = respons
-
-x = np.array(data.drop([predict], 1)) # parameters
-y = np.array(data[predict]) # respons
-
-# Splitting in testing and training sets 
-x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
+# Dependent and independent variables
+X = df_regr[['Schooling', 'Income', 'AdultMortality']].round(decimals=2)
+y = df_regr['LifeExpectancy'].round(decimals=2)
+print(np.any(np.isnan(df_regr))) #and gets False
+print(np.all(np.isfinite(df_regr)))
 
 
-# TRAIN MODEL MULTIPLE TIMES FOR BEST SCORE
-best = 0
-for _ in range(20):
-    x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
+# Make correlation plots for all parameters
+"""for col in X:
+    fig = go.Figure(data=go.Scatter(x=X[col], y=y, mode='markers'))
+    fig.update_layout(title=col)
+    fig.show()"""
 
-    # Implementing linear regression 
-    linear = linear_model.LinearRegression()
+"""Parameters showing linearity:
+AdultMortality, InfantDeaths, UnderFiveDeaths, Polio, Diphteria, HIVAIDS, GDP, Income, Schooling
+"""
 
-    linear.fit(x_train, y_train)
-    acc = linear.score(x_test, y_test)
-    print("Accuracy: " + str(acc))
+# Regression test
+def linear_prediction_model():
+    regr = linear_model.LinearRegression()
+    regr.fit(X, y)
+    
+    print('Intercept: \n', regr.intercept_)
+    print('Coefficients: \n', regr.coef_)
 
-    if acc > best:
-        best = acc
-        with open("studentgrades.pickle", "wb") as f: # Saving the model if it has a better score than one we've already trained
-            pickle.dump(linear, f)
-
-print("Best accuracy:")
-print(best)
-
-
-# LOAD MODEL
-pickle_in = open("studentgrades.pickle", "rb")
-linear = pickle.load(pickle_in)
-
-
-print("-------------------------")
-print('Coefficient: \n', linear.coef_) # each slope value
-print('Intercept: \n', linear.intercept_) 
-print("-------------------------")
-
-# List of all predictions
-print("List of predictions:")
-predicted = linear.predict(x_test)
-#predicted_data = list[]
-for x in range(len(predicted)):
-    print(predicted[x], x_test[x], y_test[x])
-    #predicted_data.append(predicted[x])
-#printe
-
-# Drawing and plotting model
-plot = "Fedu"
-plt.scatter(data[plot], data["G3"])
-plt.legend(loc=4)
-plt.xlabel(plot)
-plt.ylabel("Final Grade")
-plt.show()
-
-
-# Plotting predicted grade against grade
-
-#plt.scatter(predicted)
+    test_y = [[10, 200, 300]]
+    
+    prediction_result  = regr.predict(test_y)[0]
+    print(prediction_result)
+    return 0
+linear_prediction_model()

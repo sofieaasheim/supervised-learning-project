@@ -10,7 +10,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-data_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/test/data/life-expectancy.csv'
+data_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv'
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
