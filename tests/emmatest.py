@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 dataset = pd.read_csv("../supervised-learning-project/data/life-expectancy.csv", sep=",")
 
 #Fjern kolonner
-dataset.drop(['AdultMortality', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'Measles', 'BMI', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9', 'Income', 'Schooling'], axis=1, inplace=True)
+dataset.drop(['InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'Measles', 'BMI', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9'], axis=1, inplace=True)
 
 # Fiks 'status' kolonnen
 dataset.replace(('Developing', 'Developed'), (0, 1), inplace=True)
@@ -59,12 +59,9 @@ X_test = sc_X.transform(X_test)
 
 sc_y = StandardScaler()
 #y_train = sc_y.fit_transform(y_train)
-print(X_train.shape)
-print(y_train.shape)
 regr = LinearRegression()
 regr.fit(X_train, y_train)
 
-print(regr.coef_)
 
 print(regr)
 
@@ -78,5 +75,25 @@ print(predicted)
 
 # Summarize the fit of the model
 mse = np.mean((predicted-expected)**2)
-#print (regr.intercept_, regr.coef_, mse) 
+print (regr.intercept_, regr.coef_, mse) 
 print(regr.score(X_train, y_train))
+
+import sklearn.metrics as metrics
+def regression_results(y_true, y_pred):
+
+    # Regression metrics
+    explained_variance=metrics.explained_variance_score(y_true, y_pred)
+    mean_absolute_error=metrics.mean_absolute_error(y_true, y_pred) 
+    mse=metrics.mean_squared_error(y_true, y_pred) 
+    mean_squared_log_error=metrics.mean_squared_log_error(y_true, y_pred)
+    median_absolute_error=metrics.median_absolute_error(y_true, y_pred)
+    r2=metrics.r2_score(y_true, y_pred)
+
+    print('explained_variance: ', round(explained_variance,4))    
+    print('mean_squared_log_error: ', round(mean_squared_log_error,4))
+    print('r2: ', round(r2,4))
+    print('MAE: ', round(mean_absolute_error,4))
+    print('MSE: ', round(mse,4))
+    print('RMSE: ', round(np.sqrt(mse),4))
+
+regression_results(expected, predicted)
