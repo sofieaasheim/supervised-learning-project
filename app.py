@@ -10,7 +10,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-data_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/life-exp/data/life-expectancy.csv'
+data_url = 'https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/test/data/life-expectancy.csv'
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -31,6 +31,11 @@ all_parameters = [
     'AdultMortality','InfantDeaths','Alcohol','PercentageExpenditure', 'HepatitisB',
     'Measles','BMI','UnderFiveDeaths','Polio','TotalExpenditure', 'Diphtheria','HIVAIDS',
     'GDP','Population','Thinness1_19','Thinness5_9','Income','Schooling'
+    ]
+parameter_names = [
+    'Adult mortality','Infant deaths','Alcohol','Percentage expenditure', 'Hepatitis B',
+    'Measles','BMI','Under-5 deaths','Polio','Total expenditure', 'Diphtheria','HIV/AIDS',
+    'GDP','Population','Thinness age 1 to 19','Thinness age 5 to 9','HDI income','Schooling'
     ]
 
 # Parameters with linearity
@@ -90,11 +95,12 @@ app.layout = html.Div([
     html.Div([
         html.H2('Correlation between a selected parmeter and the life expectancy'),
         html.Div(
-            "This is a visualization of the raw data from the data sets."
+            "This is a visualization of the raw data from the data sets. " +
+            "Select a parameter:"
         ),
         dcc.Dropdown(
             id='select-parameter',
-            options=[{'label': i, 'value': i} for i in all_parameters],
+            options=[{'label': i, 'value': j} for i,j in zip(parameter_names, all_parameters)],
             value='AdultMortality'
         ),
         html.Div(dcc.Graph(id='correlation-plot'))
@@ -131,7 +137,8 @@ def make_correlation_graph(select_parameter):
     y = df_regr['LifeExpectancy'].round(2)
     fig = go.Figure(data=go.Scatter(x=X, y=y, mode='markers'))
     fig.update_layout(
-        yaxis_title="Life expectancy"
+        yaxis_title="Life expectancy",
+        xaxis_title=f"{select_parameter}"
     )
     return fig
 

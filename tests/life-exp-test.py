@@ -10,7 +10,7 @@ df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
 df_regr = df[np.isfinite(df).all(1)]
 
 # Dependent and independent variables
-X = df_regr[['Schooling', 'HDI income', 'Adult mortality']].round(decimals=2)
+X = df_regr[['Schooling', 'Income', 'AdultMortality']].round(decimals=2)
 y = df_regr['LifeExpectancy'].round(decimals=2)
 print(np.any(np.isnan(df_regr))) #and gets False
 print(np.all(np.isfinite(df_regr)))
