@@ -30,16 +30,10 @@ If you are unfamiliar with these, I reccommend doing the [Dash tutorial] and loo
 
 ## Data sets
 
-Relevant data sets for the project can be found in the `data` folder.
-- `student-mat.csv` contains data from students in a math course
-- `student-por.csv` contains data from students in a Portugese language course
+Relevant data for the project can be found in the `data` folder.
+- `life-expectancy.csv` contains the relevant data set for the project
 
-
-Row 1-30 in the data sets are parameters. Row 31-33 in the data sets are grades (responses). 
-
-When working with the data, be aware thate the responses are the dependent variables and the parameters are the independent variables. They should therefore be separated into two different data frames.
-
-More information about the data can be found in the `student.txt` file.
+More information about the data can be found in the `life-expectancy.txt` file.
 
 
 ## Usage
@@ -52,8 +46,7 @@ To import the data sets to the testing files in the `tests` folder, i.e. use the
 ```sh
 import pandas as pd
 
-math_df = pd.read_csv("../supervised-learning-project/data/student-mat.csv", sep=";")
-portugese_df = pd.read_csv("../supervised-learning-project/data/student-por.csv", sep=";")
+df = pd.read_csv("../data/life-expectancy.csv", sep=",")
 ```
 
 When performing tests, make sure that you only push to the **tests** branch (or make a new branch). The **main** branch should only be used for pushing finished stuff.
