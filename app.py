@@ -55,6 +55,7 @@ def linear_prediction_model(parameter_list, selected_values):
 """ LAYOUT """
 
 app.layout = html.Div([
+    html.Div([], className="one column"),
     html.Div([
         html.H2('Life expectancy prediction'),
         html.Div(
@@ -90,7 +91,7 @@ app.layout = html.Div([
         ),
         html.H4("The predicted life expectancy in years is: "),
         html.H4(id='prediction'),
-    ], className="six columns"),
+    ], className="five columns"),
     
     html.Div([
         html.H2('Correlation between a selected parmeter and the life expectancy'),
