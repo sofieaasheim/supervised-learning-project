@@ -101,7 +101,7 @@ def make_correlation_matrix(df_regr):
         )
     )
     fig.update_layout(
-        height=600,
+        height=500,
         margin={"t": 20},
         font_family="Helvetica",
     )
@@ -259,7 +259,7 @@ def make_correlation_graph(select_parameter):
     fig.update_layout(
         yaxis_title="Life expectancy",
         xaxis_title=f"{select_parameter}",
-        height=600,
+        height=400,
         margin={"t": 20, "b": 20},
         font_family="Helvetica",
     )
