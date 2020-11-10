@@ -36,5 +36,6 @@ y = 'AdultMortality'
 
 df.plot.scatter(x, y)
 # plt.show() 
-boxplot = df.boxplot(x, y)
+#boxplot = df.boxplot(by = y, column = [x], grid = False)
+boxplot = df.boxplot(by = x, column = [y], grid = False)
 plt.show()
