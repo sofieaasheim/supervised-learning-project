@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import statsmodels.api as sm
 
 # Import the entire data sets
-df = pd.read_csv("../data/life-expectancy.csv", sep=",")
+df = pd.read_csv("../data/life-expectancy.csv", sep=",") # OBS! må ha '../supervised-learning-project før /data på Emma sin
 
 # Remove non-relevant parameters for the regression and remove all non-finite values such as NaN and +/- infinity
 df.drop(['Country', 'Year', 'Status'], axis=1, inplace=True)
@@ -30,6 +30,10 @@ def multiple_regression(df_regr, parameter_list):
     X = df_regr[parameter_list]
     y = df_regr['LifeExpectancy']
     X = sm.add_constant(X)
+    # Ikke 100% sikker, men slik jeg forstår det er det her man skal dele datasettet in i train og test.
+    # Dette er fordi når du lager regression model så trener du den samtidig. 
+    # Dette resulterer i en litt dårligere modell pga. mindre datasett (litt lavere R²).
+    # Men igjen så har man da et test dataset som man kan bruke til å predicte. 
     
     # Execute multiple regression using statsmodels
     regression_model = sm.OLS(y, X).fit()
