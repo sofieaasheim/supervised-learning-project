@@ -44,7 +44,7 @@ dataset.dropna(inplace=True)
 
 print(dataset)
 X = dataset.iloc[:,1:].values
-#X = np.delete(X, 1, 1)
+X = sm.add_constant(X)
 y = dataset.iloc[:, 0].values
 
 print(y)
@@ -60,12 +60,10 @@ X_test = sc_X.transform(X_test)
 
 sc_y = StandardScaler()
 #y_train = sc_y.fit_transform(y_train)
-#regr = LinearRegression()
-regr = sm.OLS(y_train,X_train).fit()
+regr = LinearRegression()
 
-#regr.fit(X_train, y_train)
+regr.fit(X_train, y_train)
 
-print(regr.summary())
 
 #print(regr)
 
