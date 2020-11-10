@@ -6,22 +6,21 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
 
 # Import the entire data sets
 dataset = pd.read_csv("../supervised-learning-project/data/life-expectancy.csv", sep=",")
 
 #Fjern kolonner
-dataset.drop(['InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'Measles', 'BMI', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9'], axis=1, inplace=True)
+dataset.drop(['Status', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'BMI', 'Measles', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9'], axis=1, inplace=True)
 
 # Fiks 'status' kolonnen
-dataset.replace(('Developing', 'Developed'), (0, 1), inplace=True)
+#dataset.replace(('Developing', 'Developed'), (0, 1), inplace=True)
 
 #Creating initial dataframe
 countrynames = dataset["Country"].unique()
 country_df = pd.DataFrame(countrynames, columns=['Country'])
-statustypes = dataset["Status"].unique()
-status_df =pd.DataFrame(statustypes, columns=['Status'])
-
 # # converting type of columns to 'category'
 # #country_df['Country'] = country_df['Country'].astype('category')
 
@@ -41,13 +40,15 @@ country_df
 # merge with dataset on key values
 dataset = dataset.merge(country_df)
 dataset.drop(['Country','Year'], axis=1, inplace=True)
-print(dataset)
 dataset.dropna(inplace=True)
 
 print(dataset)
-X = dataset.iloc[:,:].values
-X = np.delete(X, 1, 1)
-y = dataset.iloc[:, 1].values
+X = dataset.iloc[:,1:].values
+#X = np.delete(X, 1, 1)
+y = dataset.iloc[:, 0].values
+
+print(y)
+
 
 
 #Splitting data into test and training data
@@ -59,11 +60,14 @@ X_test = sc_X.transform(X_test)
 
 sc_y = StandardScaler()
 #y_train = sc_y.fit_transform(y_train)
-regr = LinearRegression()
-regr.fit(X_train, y_train)
+#regr = LinearRegression()
+regr = sm.OLS(y_train,X_train).fit()
 
+#regr.fit(X_train, y_train)
 
-print(regr)
+print(regr.summary())
+
+#print(regr)
 
 #Make predictions
 expected = y_test
