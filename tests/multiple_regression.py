@@ -48,4 +48,5 @@ print(multiple_regression(df_regr, parameter_list_2))
 # Now all parameters have a p-value of less than 0.05, which indicates that all parameters
 # are likely to be a meaningful addition to the model.
 
-# Step 3: Training and testing the model ??? Er dette riktig rekkefølge?
+# Step 3: Training and testing the model ??? Er dette riktig rekkefølge? Kan bytte til
+# å bruke sklearn nå hvis det er lettere evt, tror det er mer tilpasset training/test
