@@ -204,7 +204,7 @@ app.layout = html.Div(
             [
                 html.H2("Raw data visualizations"),
                 html.H4(
-                    "Correlation between a selected parmeter and the life expectancy"
+                    "Correlation between a selected parameter and the life expectancy"
                 ),
                 html.Div("Select a parameter:"),
                 dcc.Dropdown(
