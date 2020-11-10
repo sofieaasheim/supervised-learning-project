@@ -63,7 +63,7 @@ parameter_names = [
 ]
 
 # Parameters with linearity
-parameter_list = ["Schooling", "Income", "AdultMortality"]
+parameter_list = ["Schooling", "Income", "HIVAIDS", "BMI", "AdultMortality"]
 
 """
 REGRESSION PREDICTION MODEL
@@ -120,8 +120,8 @@ app.layout = html.Div(
                 html.H2("Life expectancy prediction"),
                 html.Div(
                     [
-                        "This is a tool for predicting the life expectancy of the population in your country. The prediction "
-                        + "model is built from a multiple linear regression on a data set from WHO found ",
+                        "This is a tool for predicting the average life expectancy of the population in your country. "
+                        + "The prediction model is built from a multiple linear regression on a data set from WHO found ",
                         html.A(
                             "here",
                             href="https://www.kaggle.com/kumarajarshi/life-expectancy-who",
@@ -130,11 +130,15 @@ app.layout = html.Div(
                         html.Br(),
                         html.Br(),
                         "After performing many tests, the parameters below turned out to be the most "
-                        + "statistically significant parameter combination for this predictive model. ",
+                        + "statistically significant parameters from the data set for this predictive model. ",
                         html.Br(),
                         html.Br(),
-                        "(Jeg tenker vi oppdaterer parameterne ut i fra hvilke resultater vi får av regresjonen, "
-                        + "de under er bare et foreløpig forslag.)",
+                        "For more information about the project, check out our GitHub repository: ",
+                        html.A(
+                            "github.com/sofieaasheim/supervised-learning-project",
+                            href="https://github.com/sofieaasheim/supervised-learning-project",
+                        ),
+                        ".",
                     ]
                 ),
                 html.Br(),
@@ -171,8 +175,58 @@ app.layout = html.Div(
                     },
                 ),
                 html.Br(),
+                html.H5("HIV/AIDS"),
+                html.Div(
+                    "Select the amount of deaths per 1000 live births HIV/AIDS (0-4 years): "
+                ),
+                dcc.Slider(
+                    id="hivaids",
+                    min=0,
+                    max=50,
+                    step=5,
+                    value=0,
+                    marks={
+                        0: "0",
+                        5: "5",
+                        10: "10",
+                        15: "15",
+                        20: "20",
+                        25: "25",
+                        30: "30",
+                        35: "35",
+                        40: "40",
+                        45: "45",
+                        50: "50",
+                    },
+                ),
+                html.Br(),
+                html.H5("BMI"),
+                html.Div(
+                    "Select the average Body Mass Index (BMI) of the population: "
+                ),
+                dcc.Slider(
+                    id="bmi",
+                    min=0,
+                    max=100,
+                    step=1,
+                    value=0,
+                    marks={
+                        0: "0",
+                        10: "10",
+                        20: "20",
+                        30: "30",
+                        40: "40",
+                        50: "50",
+                        60: "60",
+                        70: "70",
+                        80: "80",
+                        90: "90",
+                        100: "100",
+                    },
+                ),
+                html.Br(),
                 html.H5("Adult mortality"),
-                html.Div("Select the adult mortality rate per 1000 population: "),
+                html.Div("Select the adult mortality rate (per 1000 population): "),
                 dcc.Slider(
                     id="adult-mortality",
                     min=0,
@@ -203,10 +257,12 @@ app.layout = html.Div(
         html.Div(
             [
                 html.H2("Raw data visualizations"),
-                html.H4(
-                    "Correlation between a selected parameter and the life expectancy"
+                html.H4("Correlation between the parameters and the life expectancy"),
+                html.Div(
+                    "The visualization below shows a scatter plot of a selected parameter "
+                    + "and the life expectancy. Select a parameter:"
                 ),
-                html.Div("Select a parameter:"),
+                html.Br(),
                 dcc.Dropdown(
                     id="select-parameter",
                     options=[
@@ -216,7 +272,17 @@ app.layout = html.Div(
                     value="AdultMortality",
                 ),
                 html.Div(dcc.Graph(id="correlation-plot")),
-                html.H4("Correlations between all parameters (independent variables)"),
+                html.H4("Correlations between all parameters"),
+                html.Div(
+                    [
+                        "This visualization shows a heat map of all the ",
+                        html.A(
+                            "Pearson correlation coefficients",
+                            href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient",
+                        ),
+                        " of the parameters in the data set.",
+                    ]
+                ),
                 html.Div(
                     dcc.Graph(
                         id="correlation-matrix", figure=make_correlation_matrix(df_regr)
@@ -240,11 +306,13 @@ changes the plots
     [
         Input("schooling", "value"),
         Input("hdi-income", "value"),
+        Input("hivaids", "value"),
+        Input("bmi", "value"),
         Input("adult-mortality", "value"),
     ],
 )
-def get_prediction_result(schooling, hdi_income, adult_mortality):
-    selected_values = [schooling, hdi_income, adult_mortality]
+def get_prediction_result(schooling, hdi_income, hiv_aids, bmi, adult_mortality):
+    selected_values = [schooling, hdi_income, hiv_aids, bmi, adult_mortality]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 
