@@ -31,8 +31,10 @@ quantile = df[['LifeExpectancy', 'AdultMortality','InfantDeaths', 'Alcohol', 'Pe
 print(quantile)
 
 # Plotting using matplotlib
-x = 'AdultMortality'
-y = 'LifeExpectancy'  
+x = 'LifeExpectancy'  
+y = 'AdultMortality'
 
 df.plot.scatter(x, y)
+# plt.show() 
+boxplot = df.boxplot(x, y)
 plt.show()
