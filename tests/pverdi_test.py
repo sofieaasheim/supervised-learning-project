@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 dataset = pd.read_csv("../supervised-learning-project/data/life-expectancy.csv", sep=",")
 
 # Remove parameters
-dataset.drop(['Year', 'Country','Status', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'BMI', 'Measles', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9'], axis=1, inplace=True)
+dataset.drop(['Year', 'Country','Status', 'InfantDeaths', 'PercentageExpenditure', 'HepatitisB', 'Measles', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9'], axis=1, inplace=True)
 
 # Check for NaN 
 # print(np.any(np.isnan(dataset))) #and gets False
@@ -17,7 +17,7 @@ dataset.drop(['Year', 'Country','Status', 'InfantDeaths', 'Alcohol', 'Percentage
 dataset.dropna(inplace=True)
 
 # Dependent and independent variables
-X = dataset[['Schooling', 'Income', 'AdultMortality']].round(decimals=2)
+X = dataset[['Schooling', 'Income', 'AdultMortality', 'Alcohol', 'BMI', 'HIVAIDS']].round(decimals=2)
 y = dataset['LifeExpectancy'].round(decimals=2)
 
 # Split dataset into test data and training data
