@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import statsmodels.api as sm
 import sklearn 
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt 
 
 # Import the entire data sets
 df = pd.read_csv("./supervised-learning-project/data/life-expectancy.csv", sep=",") # OBS! må ha '../supervised-learning-project før /data på Emma sin
@@ -44,14 +45,26 @@ def multiple_regression(df_regr, parameter_list):
 
     # Predicting using the model
     y_pred = regression_model.predict(X_test)
-    df = pd.DataFrame({'Life Expectanct':y_test, 'Predicted Life Excpectancy':y_pred})
+    df = pd.DataFrame({'Actual Life Expectanct':y_test, 'Predicted Life Excpectancy':y_pred})
 
     # Printing the STD between the predicted and the real Life Excpecanct
     # print("\n STD:")
     std = np.std(np.abs(y_test - y_pred))
     
+    # Plotting the predicted and real values
+    x = X_test
+    y_t = np.round(y_test)
+    y_p = np.round(y_pred)
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
 
-    return regression_model.summary(), df , 'STD:',  std
+    ax1.scatter(x,y_t, c='b', marker='x', label='Actual Life Expectanct')
+    ax1.scatter(x,y_p, c='r', marker='o', label='Predicted Life Excpectancy')
+    plt.legend(loc='upper left')
+    plt.show()
+
+
+    return regression_model.summary(), df , 'STD:',  std, 
 
 # Step 1: Multiple linear regression with AdultMortality, Alcohol, BMI, HIVAIDS, Income and Schooling
 parameter_list_1 = ['AdultMortality', 'Alcohol', 'BMI', 'HIVAIDS', 'Income', 'Schooling']
