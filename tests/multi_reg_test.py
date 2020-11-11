@@ -42,7 +42,15 @@ def multiple_regression(df_regr, parameter_list):
     # Execute multiple regression using statsmodels
     regression_model = sm.OLS(y_train, X_train).fit()
 
-    return regression_model.summary()
+    # Predicting using the model
+    y_pred = regression_model.predict(X_test)
+    df = pd.DataFrame({'Life Expectanct':y_test, 'Predicted Life Excpectancy':y_pred})
+
+    # Printing the STD between the predicted and the real Life Excpecanct
+    print("Mean squared error:")
+    print(np.std(np.abs(y_test - y_pred)))
+
+    return regression_model.summary(), df
 
 # Step 1: Multiple linear regression with AdultMortality, Alcohol, BMI, HIVAIDS, Income and Schooling
 parameter_list_1 = ['AdultMortality', 'Alcohol', 'BMI', 'HIVAIDS', 'Income', 'Schooling']
