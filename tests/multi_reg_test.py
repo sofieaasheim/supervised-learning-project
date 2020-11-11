@@ -33,28 +33,27 @@ def multiple_regression(df_regr, parameter_list):
     X = df_regr[parameter_list]
     y = df_regr['LifeExpectancy']
     X = sm.add_constant(X)
-    # Ikke 100% sikker, men slik jeg forstår det er det her man skal dele datasettet in i train og test.
-    # Dette er fordi når du lager regression model så trener du den samtidig. 
-    # Dette resulterer i en litt dårligere modell pga. mindre datasett (litt lavere R²).
-    # Men igjen så har man da et test dataset som man kan bruke til å predicte. 
 
+    # Slpitting the dataset into training and test sets 
     X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=0)
     
-    # Execute multiple regression using statsmodels
+    # Execute multiple regression using statsmodels on the training set
     regression_model = sm.OLS(y_train, X_train).fit()
 
-    # Predicting using the model
+    # Predicting using the model and test parameters
     y_pred = regression_model.predict(X_test)
-    df = pd.DataFrame({'Actual Life Expectanct':y_test, 'Predicted Life Excpectancy':y_pred})
 
-    # Printing the STD between the predicted and the real Life Excpecanct
-    # print("\n STD:")
-    std = np.std(np.abs(y_test - y_pred))
+    # Comparing the predicted value against the test value 
+    df = pd.DataFrame({'Actual Life Expectanct':y_test, 'Predicted Life Excpectancy':y_pred, 'Error':(y_test - y_pred)})
+
+    # Printing the average error between the predicted value and the thest value
+    error = np.mean(np.abs(y_test - y_pred))
+
     
     # Plotting the predicted and real values
-    x = X_test
-    y_t = np.round(y_test)
-    y_p = np.round(y_pred)
+    x = list(range(0,330))
+    y_t = y_test
+    y_p = y_pred
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
 
@@ -62,9 +61,9 @@ def multiple_regression(df_regr, parameter_list):
     ax1.scatter(x,y_p, c='r', marker='o', label='Predicted Life Excpectancy')
     plt.legend(loc='upper left')
     plt.show()
+    
 
-
-    return regression_model.summary(), df , 'STD:',  std, 
+    return regression_model.summary(), df , 'Average Error:',  error
 
 # Step 1: Multiple linear regression with AdultMortality, Alcohol, BMI, HIVAIDS, Income and Schooling
 parameter_list_1 = ['AdultMortality', 'Alcohol', 'BMI', 'HIVAIDS', 'Income', 'Schooling']
