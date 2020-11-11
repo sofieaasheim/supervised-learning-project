@@ -47,10 +47,11 @@ def multiple_regression(df_regr, parameter_list):
     df = pd.DataFrame({'Life Expectanct':y_test, 'Predicted Life Excpectancy':y_pred})
 
     # Printing the STD between the predicted and the real Life Excpecanct
-    print("Mean squared error:")
-    print(np.std(np.abs(y_test - y_pred)))
+    # print("\n STD:")
+    std = np.std(np.abs(y_test - y_pred))
+    
 
-    return regression_model.summary(), df
+    return regression_model.summary(), df , 'STD:',  std
 
 # Step 1: Multiple linear regression with AdultMortality, Alcohol, BMI, HIVAIDS, Income and Schooling
 parameter_list_1 = ['AdultMortality', 'Alcohol', 'BMI', 'HIVAIDS', 'Income', 'Schooling']
@@ -64,5 +65,4 @@ print(multiple_regression(df_regr, parameter_list_2))
 # Now all parameters have a p-value of less than 0.05, which indicates that all parameters
 # are likely to be a meaningful addition to the model.
 
-# Step 3: Training and testing the model ??? Er dette riktig rekkefølge? Kan bytte til
-# å bruke sklearn nå hvis det er lettere evt, tror det er mer tilpasset training/test
+
