@@ -50,16 +50,17 @@ def multiple_regression(df_regr, parameter_list):
     error = np.mean(np.abs(y_test - y_pred))
 
     
-    # Plotting the predicted and real values
+    # Plotting the predicted and real values against each other 
     x = list(range(0,330))
     y_t = y_test
     y_p = y_pred
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
 
-    ax1.scatter(x,y_t, c='b', marker='x', label='Actual Life Expectanct')
+    ax1.scatter(x,y_t, c='b', marker='x', label='Actual Life Expectancy')
     ax1.scatter(x,y_p, c='r', marker='o', label='Predicted Life Excpectancy')
     plt.legend(loc='upper left')
+    plt.ylabel('Years')
     plt.show()
     
 
