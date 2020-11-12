@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 # Import the entire data sets
 df = pd.read_csv(
-    "../data/life-expectancy.csv", sep=","
+    "./supervised-learning-project/data/life-expectancy.csv", sep=","
 )  # OBS! må ha '../supervised-learning-project før /data på Emma sin
 
 # Remove non-relevant parameters for the regression and remove all non-finite values such as NaN and +/- infinity
