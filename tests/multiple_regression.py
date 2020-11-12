@@ -6,10 +6,12 @@ import sklearn
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
+""" IMPORT AND PREPROCESS THE DATA """
+
+data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
+
 # Import the entire data sets
-df = pd.read_csv(
-    "../data/life-expectancy.csv", sep=","
-)  # OBS! må ha '../supervised-learning-project før /data på Emma sin
+df = pd.read_csv(data_url, sep=",")
 
 # Remove non-relevant parameters for the regression and remove all non-finite values such as NaN and +/- infinity
 df.drop(["Country", "Year", "Status"], axis=1, inplace=True)
@@ -23,55 +25,24 @@ for col in X:
     fig.show()
 """
 
-""" MULTIPLE REGRESSION
-Now, perform a multiple regression on the parameters that show a linear relationship with the response,
-using the plots from above. These parameters are:
+""" MAKING THE MULTIPLE REGRESSION PREDICTION MODEL """
 
-AdultMortality, AlcoholConsumption, BMI, HIVAIDS, Income and Schooling
-"""
+# Step 1: Remove non-linear parameters and check for multicollinearlity
+# The first thing we need to to is removing the parameters that do not seem to show any linear 
+# relationship with the response by using the correlation plots from above (these are also
+# visualized on our website tdt4173group9.herokuapp.com). These are:
 
+initial_parameters = ['AdultMortality', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'BMI', 'Polio',
+'TotalExpenditure', 'HIVAIDS', 'Diphtheria', 'Thinness1_19', 'Income', 'Schooling']
+
+# UnderFiveDeaths, GDP and Thinness 5_9 also seemed to have a slight linear relationship with the 
+# response, but these parameters are highly correlated with InfantDeaths, PercentageExpenditure 
+# and Thinness1_19respectively, and cannot be in the same model simultaneously.
+# The correlations between all parameters are visualized in correlation_matrix.py
+
+# Step 2: Make a multiple regression model for testing and training of the data, and prediction
 
 def multiple_regression(df_regr, parameter_list):
-    # Make dataframe for parameters (X) and response (y)
-    X = df_regr[parameter_list]
-    y = df_regr["LifeExpectancy"]
-    X = sm.add_constant(X)
-    # Ikke 100% sikker, men slik jeg forstår det er det her man skal dele datasettet in i train og test.
-    # Dette er fordi når du lager regression model så trener du den samtidig.
-    # Dette resulterer i en litt dårligere modell pga. mindre datasett (litt lavere R²).
-    # Men igjen så har man da et test dataset som man kan bruke til å predicte.
-
-    # Execute multiple regression using statsmodels
-    regression_model = sm.OLS(y, X).fit()
-
-    return regression_model.summary()
-
-
-# Step 1: Multiple linear regression with AdultMortality, Alcohol, BMI, HIVAIDS, Income and Schooling
-parameter_list_1 = [
-    "AdultMortality",
-    "Alcohol",
-    "BMI",
-    "HIVAIDS",
-    "Income",
-    "Schooling",
-]
-# print(multiple_regression(df_regr, parameter_list_1))
-
-# Step 2: Remove the parameter with the highest p-value. This was the Alchol parameter which had a
-# p-value of 0.169. Do the regression again with the rest of the parameters
-parameter_list_2 = ["AdultMortality", "BMI", "HIVAIDS", "Income", "Schooling"]
-# print(multiple_regression(df_regr, parameter_list_2))
-
-# Now all parameters have a p-value of less than 0.05, which indicates that all parameters
-# are likely to be a meaningful addition to the model.
-
-
-# Step 3: Training and testing the model. Now the model needs to be trained and tested to evaluate
-# the quality of the predictions.
-
-
-def model_train_test(df_regr, parameter_list):
     # Make dataframe for parameters (X) and response (y)
     X = df_regr[parameter_list]
     y = df_regr["LifeExpectancy"]
@@ -132,9 +103,57 @@ def model_train_test(df_regr, parameter_list):
         height=500,
         width=1000,
     )
-    fig.show()
+    # Uncomment to show prediction vs actual values plot
+    #fig.show()
 
     return regression_model.summary(), df, "Average Error:", error
 
 
-print(model_train_test(df_regr, parameter_list_2))
+# Step 3: Execute multiple linear regression with all the initial parameters described above
+
+#print(multiple_regression(df_regr, initial_parameters))
+
+# Step 4: Remove the parameter with the highest p-value. This was the Thinness1_19 parameter which had a
+# p-value of 0.481. Do the regression again with the rest of the parameters.
+
+test1_parameters = initial_parameters
+test1_parameters.remove("Thinness1_19")
+#print(multiple_regression(df_regr, test1_parameters))
+
+# Step 5: Repeat step 4 until all parameters have p-values of less than 0.05.
+
+# The next highest p-value parameter is HepatitisB
+test2_parameters = test1_parameters
+test2_parameters.remove("HepatitisB")
+#print(multiple_regression(df_regr, test2_parameters))
+
+# The next highest p-value parameter is Polio
+test3_parameters = test2_parameters
+test3_parameters.remove("Polio")
+#print(multiple_regression(df_regr, test3_parameters))
+
+# The next highest p-value parameter is TotalExpenditure
+test4_parameters = test3_parameters
+test4_parameters.remove("TotalExpenditure")
+#print(multiple_regression(df_regr, test4_parameters))
+
+# The next highest p-value parameter is InfantDeaths
+test5_parameters = test4_parameters
+test5_parameters.remove("InfantDeaths")
+print(multiple_regression(df_regr, test5_parameters))
+
+# Now all parameters have a p-value of less than 0.05, which indicates that all parameters
+# are likely to be a meaningful addition to the model. The parameters left are:
+
+# AdultMortality, Achohol, PercentageExpenditure, BMI, HIVAIDS, Diptheria, Income, Schooling
+
+# Step 6: Try exchanging multicollinear parameter
+# We can also try to exhange PercentageExpenditure with GDP to see if the model improves:
+
+test6_parameters = test5_parameters
+test6_parameters.remove("PercentageExpenditure")
+test6_parameters.append("GDP")
+print(multiple_regression(df_regr, test6_parameters))
+
+# The R-squared and adjusted R-squared are so close in values with these two different
+# parameter combinations, so it does (almost) not make any difference
