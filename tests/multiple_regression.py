@@ -28,19 +28,33 @@ for col in X:
 """ MAKING THE MULTIPLE REGRESSION PREDICTION MODEL """
 
 # Step 1: Remove non-linear parameters and check for multicollinearlity
-# The first thing we need to to is removing the parameters that do not seem to show any linear 
+# The first thing we need to to is removing the parameters that do not seem to show any linear
 # relationship with the response by using the correlation plots from above (these are also
 # visualized on our website tdt4173group9.herokuapp.com). These are:
 
-initial_parameters = ['AdultMortality', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'BMI', 'Polio',
-'TotalExpenditure', 'HIVAIDS', 'Diphtheria', 'Thinness1_19', 'Income', 'Schooling']
+initial_parameters = [
+    "AdultMortality",
+    "InfantDeaths",
+    "Alcohol",
+    "PercentageExpenditure",
+    "HepatitisB",
+    "BMI",
+    "Polio",
+    "TotalExpenditure",
+    "HIVAIDS",
+    "Diphtheria",
+    "Thinness1_19",
+    "Income",
+    "Schooling",
+]
 
-# UnderFiveDeaths, GDP and Thinness 5_9 also seemed to have a slight linear relationship with the 
-# response, but these parameters are highly correlated with InfantDeaths, PercentageExpenditure 
+# UnderFiveDeaths, GDP and Thinness 5_9 also seemed to have a slight linear relationship with the
+# response, but these parameters are highly correlated with InfantDeaths, PercentageExpenditure
 # and Thinness1_19respectively, and cannot be in the same model simultaneously.
 # The correlations between all parameters are visualized in correlation_matrix.py
 
 # Step 2: Make a multiple regression model for testing and training of the data, and prediction
+
 
 def multiple_regression(df_regr, parameter_list):
     # Make dataframe for parameters (X) and response (y)
@@ -104,38 +118,38 @@ def multiple_regression(df_regr, parameter_list):
         width=1000,
     )
     # Uncomment to show prediction vs actual values plot
-    #fig.show()
+    # fig.show()
 
     return regression_model.summary(), df, "Average Error:", error
 
 
 # Step 3: Execute multiple linear regression with all the initial parameters described above
 
-#print(multiple_regression(df_regr, initial_parameters))
+# print(multiple_regression(df_regr, initial_parameters))
 
 # Step 4: Remove the parameter with the highest p-value. This was the Thinness1_19 parameter which had a
 # p-value of 0.481. Do the regression again with the rest of the parameters.
 
 test1_parameters = initial_parameters
 test1_parameters.remove("Thinness1_19")
-#print(multiple_regression(df_regr, test1_parameters))
+# print(multiple_regression(df_regr, test1_parameters))
 
 # Step 5: Repeat step 4 until all parameters have p-values of less than 0.05.
 
 # The next highest p-value parameter is HepatitisB
 test2_parameters = test1_parameters
 test2_parameters.remove("HepatitisB")
-#print(multiple_regression(df_regr, test2_parameters))
+# print(multiple_regression(df_regr, test2_parameters))
 
 # The next highest p-value parameter is Polio
 test3_parameters = test2_parameters
 test3_parameters.remove("Polio")
-#print(multiple_regression(df_regr, test3_parameters))
+# print(multiple_regression(df_regr, test3_parameters))
 
 # The next highest p-value parameter is TotalExpenditure
 test4_parameters = test3_parameters
 test4_parameters.remove("TotalExpenditure")
-#print(multiple_regression(df_regr, test4_parameters))
+# print(multiple_regression(df_regr, test4_parameters))
 
 # The next highest p-value parameter is InfantDeaths
 test5_parameters = test4_parameters
