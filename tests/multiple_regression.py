@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
 
-# Import the entire data sets
+# Import the entire data set
 df = pd.read_csv(data_url, sep=",")
 
 # Remove non-relevant parameters for the regression and remove all non-finite values such as NaN and +/- infinity
@@ -25,7 +25,7 @@ for col in X:
     fig.show()
 """
 
-""" MAKING THE MULTIPLE REGRESSION PREDICTION MODEL """
+""" MAKE THE MULTIPLE REGRESSION PREDICTION MODEL """
 
 """ Step 1: Remove non-linear parameters and check for multicollinearlity
 The first thing we need to do is removing the parameters that do not seem to show any linear
