@@ -27,10 +27,11 @@ for col in X:
 
 """ MAKING THE MULTIPLE REGRESSION PREDICTION MODEL """
 
-# Step 1: Remove non-linear parameters and check for multicollinearlity
-# The first thing we need to to is removing the parameters that do not seem to show any linear
-# relationship with the response by using the correlation plots from above (these are also
-# visualized on our website tdt4173group9.herokuapp.com). These are:
+""" Step 1: Remove non-linear parameters and check for multicollinearlity
+The first thing we need to do is removing the parameters that do not seem to show any linear
+relationship with the response by using the correlation plots from above (these are also
+visualized on our website tdt4173group9.herokuapp.com). The remaining parameters are: 
+"""
 
 initial_parameters = [
     "AdultMortality",
@@ -50,11 +51,12 @@ initial_parameters = [
 
 # UnderFiveDeaths, GDP and Thinness 5_9 also seemed to have a slight linear relationship with the
 # response, but these parameters are highly correlated with InfantDeaths, PercentageExpenditure
-# and Thinness1_19respectively, and cannot be in the same model simultaneously.
-# The correlations between all parameters are visualized in correlation_matrix.py
+# and Thinness1_19 respectively, and cannot be in the same model simultaneously.
+# The correlations between all parameters are visualized in correlation_matrix.py and on
+# our website.
 
-# Step 2: Make a multiple regression model for testing and training of the data, and prediction
 
+""" Step 2: Make a multiple regression model for testing and training of the data, and for prediction """
 
 def multiple_regression(df_regr, parameter_list):
     # Make dataframe for parameters (X) and response (y)
@@ -62,7 +64,7 @@ def multiple_regression(df_regr, parameter_list):
     y = df_regr["LifeExpectancy"]
     X = sm.add_constant(X)
 
-    # Slpitting the dataset into training and test sets
+    # Slpit the dataset into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=0
     )
@@ -70,10 +72,10 @@ def multiple_regression(df_regr, parameter_list):
     # Execute multiple regression using statsmodels on the training set
     regression_model = sm.OLS(y_train, X_train).fit()
 
-    # Predicting using the model and test parameters
+    # Predict using the model and test parameters
     y_pred = regression_model.predict(X_test)
 
-    # Comparing the predicted value against the test value
+    # Compare the predicted value against the test value
     df = pd.DataFrame(
         {
             "Actual Life Expectancy": y_test,
@@ -82,10 +84,10 @@ def multiple_regression(df_regr, parameter_list):
         }
     )
 
-    # Printing the average error between the predicted value and the thest value
+    # Print the average error between the predicted value and the thest value
     error = np.mean(np.abs(y_test - y_pred))
 
-    # Plotting the predicted and real values against each other
+    # Plot the predicted and real values against each other
     x = list(range(0, 330))
     y_t = y_test
     y_p = y_pred
@@ -123,18 +125,18 @@ def multiple_regression(df_regr, parameter_list):
     return regression_model.summary(), df, "Average Error:", error
 
 
-# Step 3: Execute multiple linear regression with all the initial parameters described above
+""" Step 3: Execute multiple linear regression with all the initial parameters described above """
 
 # print(multiple_regression(df_regr, initial_parameters))
 
-# Step 4: Remove the parameter with the highest p-value. This was the Thinness1_19 parameter which had a
-# p-value of 0.481. Do the regression again with the rest of the parameters.
+""" Step 4: Remove the parameter with the highest p-value. This was the Thinness1_19 parameter which had a
+ p-value of 0.481. Do the regression again with the rest of the parameters. """
 
 test1_parameters = initial_parameters
 test1_parameters.remove("Thinness1_19")
 # print(multiple_regression(df_regr, test1_parameters))
 
-# Step 5: Repeat step 4 until all parameters have p-values of less than 0.05.
+""" Step 5: Repeat step 4 until all parameters have p-values of less than 0.05. """
 
 # The next highest p-value parameter is HepatitisB
 test2_parameters = test1_parameters
@@ -161,8 +163,8 @@ print(multiple_regression(df_regr, test5_parameters))
 
 # AdultMortality, Achohol, PercentageExpenditure, BMI, HIVAIDS, Diptheria, Income, Schooling
 
-# Step 6: Try exchanging multicollinear parameter
-# We can also try to exhange PercentageExpenditure with GDP to see if the model improves:
+""" Step 6: Try exchanging multicollinear parameter
+We can also try to exhange PercentageExpenditure with GDP to see if the model improves: """
 
 test6_parameters = test5_parameters
 test6_parameters.remove("PercentageExpenditure")
