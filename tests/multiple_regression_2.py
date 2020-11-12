@@ -6,10 +6,10 @@ import sklearn
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
-# Import the entire data sets
-df = pd.read_csv(
-    "./supervised-learning-project/data/life-expectancy.csv", sep=","
-)  # OBS! må ha '../supervised-learning-project før /data på Emma sin
+data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
+
+# Import the entire data set
+df = pd.read_csv(data_url, sep=",")
 
 # Remove non-relevant parameters for the regression and remove all non-finite values such as NaN and +/- infinity
 df.drop(["Country", "Year", "Status"], axis=1, inplace=True)
@@ -87,6 +87,7 @@ def multiple_regression(df_regr, parameter_list):
     )
     fig.update_layout(
         yaxis_title="Years",
+        xaxis_title="Instance number",
         font_family="Helvetica",
         title="Actual vs. predicted life expectancy",
         height=500,
