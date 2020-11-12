@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 df = pd.read_csv("../data/life-expectancy.csv", sep=",")
 
 # Remove non-numerical parameters and the response
-df.drop(['Country', 'Year', 'Status', 'LifeExpectancy'], axis=1, inplace=True)
+df.drop(["Country", "Year", "Status", "LifeExpectancy"], axis=1, inplace=True)
 
 # Make a parameter df and remove all non-finite values (NaN and +/- infinity)
 parameter_df = df[np.isfinite(df).all(1)]
@@ -17,12 +17,16 @@ parameter_df = df[np.isfinite(df).all(1)]
 correlation_df = parameter_df.corr()
 
 # Plot the correlation coefficients in a heatmap
-fig = go.Figure(data=go.Heatmap(
-                   z=correlation_df,
-                   x=list(correlation_df.columns),
-                   y=list(correlation_df.columns),
-                   hoverongaps = False))
+fig = go.Figure(
+    data=go.Heatmap(
+        z=correlation_df,
+        x=list(correlation_df.columns),
+        y=list(correlation_df.columns),
+        hoverongaps=False,
+    )
+)
 fig.update_layout(
-    title="Correlation matrix"
+    title="Correlation matrix",
+    font_family="Helvetica",
 )
 fig.show()
