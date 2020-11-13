@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import statsmodels.api as sm
 import sklearn
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error
 import matplotlib.pyplot as plt
 
 data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
@@ -97,8 +98,8 @@ def model_train_test(df_regr, parameter_list):
         }
     )
 
-    # Printing the average error between the predicted value and the thest value
-    error = np.mean(np.abs(y_test - y_pred))
+    # Printing the Mean Absolute Error
+    mae = mean_absolute_error(y_pred, y_test)
 
     # Plotting the predicted and real values against each other
     x = list(range(0, 330))
@@ -135,7 +136,7 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.show()
 
-    return regression_model.summary(), df, "Average Error:", error
+    return regression_model.summary(), df, "Average Error:", error, "Mean Absolute Error", mae
 
 
 print(model_train_test(df_regr, parameter_list_2))

@@ -105,7 +105,7 @@ parameter_list_1 = [
     "BMI",
     "HIVAIDS",
     "Income",
-    "Schooling",
+    "Schooling ",
 ]
 # print(multiple_regression(df_regr, parameter_list_1))
 
