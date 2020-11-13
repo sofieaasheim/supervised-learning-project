@@ -128,7 +128,7 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.update_layout(
         yaxis_title="Years",
-        xaxis_title="",
+        xaxis_title="Different Instances",
         font_family="Helvetica",
         title="Actual vs. predicted life expectancy",
         height=500,
@@ -136,7 +136,7 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.show()
 
-    return regression_model.summary(), df, "Average Error:", error, "Mean Absolute Error", mae
+    return regression_model.summary(), df, "Mean Absolute Error", mae
 
 
 print(model_train_test(df_regr, parameter_list_2))
