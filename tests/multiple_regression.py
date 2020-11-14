@@ -98,7 +98,10 @@ def model_train_test(df_regr, parameter_list):
         }
     )
 
-    # Printing the Mean Absolute Error
+    # Calculating the Error Model 
+    error_model = np.sum((y_test-y_pred)**2)
+
+    # Calculating the Mean Absolute Error
     mae = mean_absolute_error(y_pred, y_test)
 
     # Plotting the predicted and real values against each other
@@ -136,7 +139,7 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.show()
 
-    return regression_model.summary(), df, "Mean Absolute Error", mae
+    return regression_model.summary(), df, "Mean Absolute Error:", mae, "ErrorModel:", error_model
 
 
 print(model_train_test(df_regr, parameter_list_2))
