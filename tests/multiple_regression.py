@@ -103,6 +103,7 @@ def model_train_test(df_regr, parameter_list):
 
     # Calculating the sum of average error
     error_sum = np.sum(y_test-y_pred)
+    
 
     # Calculating the Mean Absolute Error
     mae = mean_absolute_error(y_pred, y_test)
@@ -153,26 +154,6 @@ def model_train_test(df_regr, parameter_list):
             opacity=0.6,
             name="Actual Life Expectancy",
         )
-    )
-    fig.add_shape(type='line',
-                x0=0,
-                y0=mae,
-                x1=335,
-                y1=mae,
-                line=dict(color='red',),
-                xref='x',
-                yref='y',
-                name="Mean Absolute Error"
-    )
-    fig.add_shape(type='line',
-                x0=0,
-                y0=-mae,
-                x1=335,
-                y1=-mae,
-                line=dict(color='red',),
-                xref='x',
-                yref='y',
-                name="Mean Absolute Error"
     )
     fig.update_layout(
         yaxis_title="Years",
