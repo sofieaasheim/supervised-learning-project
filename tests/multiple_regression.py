@@ -101,6 +101,9 @@ def model_train_test(df_regr, parameter_list):
     # Calculating the Error Model 
     error_model = np.sum((y_test-y_pred)**2)
 
+    # Calculating the sum of average error
+    error_sum = np.sum(y_test-y_pred)
+
     # Calculating the Mean Absolute Error
     mae = mean_absolute_error(y_pred, y_test)
 
@@ -161,7 +164,38 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.show()
 
-    return regression_model.summary(), df, "ErrorModel:", error_model, "Mean Absolute Error:", mae
+     # Plotting the absolute error values 
+    fig = go.Figure(
+        data=go.Scatter(
+            x=list(range(0, 330)),
+            y=np.abs(y_test - y_pred),
+            mode="markers",
+            marker_symbol="x",
+            marker_color="blue",
+            opacity=0.6,
+            name="Actual Life Expectancy",
+        )
+    )
+    fig.add_shape(type='line',
+                x0=0,
+                y0=mae,
+                x1=330,
+                y1=mae,
+                line=dict(color='red',),
+                xref='x',
+                yref='y'
+)
+    fig.update_layout(
+        yaxis_title="Years",
+        xaxis_title="Different Instances",
+        font_family="Helvetica",
+        title="Error in Actual vs. Predicted Life Expectancy",
+        height=500,
+        width=1000,
+    )
+    fig.show()
+
+    return regression_model.summary(), df, "ErrorModel:", error_model, "Mean Absolute Error:", mae, "Sum of Errors:", error_sum
 
 
 print(model_train_test(df_regr, parameter_list_2))
