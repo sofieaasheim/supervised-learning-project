@@ -154,6 +154,26 @@ def model_train_test(df_regr, parameter_list):
             name="Actual Life Expectancy",
         )
     )
+    fig.add_shape(type='line',
+                x0=0,
+                y0=mae,
+                x1=335,
+                y1=mae,
+                line=dict(color='red',),
+                xref='x',
+                yref='y',
+                name="Mean Absolute Error"
+    )
+    fig.add_shape(type='line',
+                x0=0,
+                y0=-mae,
+                x1=335,
+                y1=-mae,
+                line=dict(color='red',),
+                xref='x',
+                yref='y',
+                name="Mean Absolute Error"
+    )
     fig.update_layout(
         yaxis_title="Years",
         xaxis_title="Different Instances",
@@ -173,23 +193,24 @@ def model_train_test(df_regr, parameter_list):
             marker_symbol="x",
             marker_color="blue",
             opacity=0.6,
-            name="Actual Life Expectancy",
+            name="Error in Prediction",
         )
     )
     fig.add_shape(type='line',
                 x0=0,
                 y0=mae,
-                x1=330,
+                x1=335,
                 y1=mae,
                 line=dict(color='red',),
                 xref='x',
-                yref='y'
-)
+                yref='y',
+                name="Mean Absolute Error"
+    )
     fig.update_layout(
         yaxis_title="Years",
         xaxis_title="Different Instances",
         font_family="Helvetica",
-        title="Error in Actual vs. Predicted Life Expectancy",
+        title="Absolute Error in Actual vs. Predicted Life Expectancy",
         height=500,
         width=1000,
     )
