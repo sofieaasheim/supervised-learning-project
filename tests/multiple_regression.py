@@ -139,7 +139,30 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.show()
 
-    return regression_model.summary(), df, "Mean Absolute Error:", mae, "ErrorModel:", error_model
+     # Plotting the error values 
+
+    fig = go.Figure(
+        data=go.Scatter(
+            x=list(range(0, 330)),
+            y=y_test - y_pred,
+            mode="markers",
+            marker_symbol="x",
+            marker_color="black",
+            opacity=0.6,
+            name="Actual life expectancy",
+        )
+    )
+    fig.update_layout(
+        yaxis_title="Years",
+        xaxis_title="Different Instances",
+        font_family="Helvetica",
+        title="Error between Actual vs. predicted life expectancy",
+        height=500,
+        width=1000,
+    )
+    fig.show()
+
+    return regression_model.summary(), df, "ErrorModel:", error_model, "Mean Absolute Error:", mae
 
 
 print(model_train_test(df_regr, parameter_list_2))
