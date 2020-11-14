@@ -117,7 +117,7 @@ app.layout = html.Div(
         html.Div([], className="one column"),
         html.Div(
             [
-                html.H2("Life expectancy prediction"),
+                html.H2("Life Expectancy Prediction"),
                 html.Div(
                     [
                         "This is a tool for predicting the average life expectancy of the population in your country. "
@@ -256,7 +256,7 @@ app.layout = html.Div(
         ),
         html.Div(
             [
-                html.H2("Raw data visualizations"),
+                html.H2("Raw Data Visualizations"),
                 html.H4("Correlation between the parameters and the life expectancy"),
                 html.Div(
                     "The visualization below shows a scatter plot of a selected parameter "
@@ -272,7 +272,7 @@ app.layout = html.Div(
                     value="AdultMortality",
                 ),
                 html.Div(dcc.Graph(id="correlation-plot")),
-                html.H4("Correlations between all parameters"),
+                html.H4("Correlations Between All Parameters"),
                 html.Div(
                     [
                         "This visualization shows a heat map of all the ",

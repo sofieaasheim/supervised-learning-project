@@ -117,7 +117,7 @@ def model_train_test(df_regr, parameter_list):
             marker_symbol="x",
             marker_color="black",
             opacity=0.6,
-            name="Actual life expectancy",
+            name="Actual Life Expectancy",
         )
     )
     fig.add_trace(
@@ -126,37 +126,36 @@ def model_train_test(df_regr, parameter_list):
             y=y_p,
             mode="markers",
             marker_color="crimson",
-            name="Predicted life expectancy",
+            name="Predicted Life Expectancy",
         )
     )
     fig.update_layout(
         yaxis_title="Years",
         xaxis_title="Different Instances",
         font_family="Helvetica",
-        title="Actual vs. predicted life expectancy",
+        title="Actual vs. Predicted Life Expectancy",
         height=500,
         width=1000,
     )
     fig.show()
 
      # Plotting the error values 
-
     fig = go.Figure(
         data=go.Scatter(
             x=list(range(0, 330)),
             y=y_test - y_pred,
             mode="markers",
             marker_symbol="x",
-            marker_color="black",
+            marker_color="blue",
             opacity=0.6,
-            name="Actual life expectancy",
+            name="Actual Life Expectancy",
         )
     )
     fig.update_layout(
         yaxis_title="Years",
         xaxis_title="Different Instances",
         font_family="Helvetica",
-        title="Error between Actual vs. predicted life expectancy",
+        title="Error in Actual vs. Predicted Life Expectancy",
         height=500,
         width=1000,
     )
