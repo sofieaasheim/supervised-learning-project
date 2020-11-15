@@ -196,7 +196,12 @@ def model_train_test(df_regr, parameter_list):
     )
     fig.show()
 
-    return regression_model.summary(), df, "ErrorModel:", error_model, "Mean Absolute Error:", mae, "Sum of Errors:", error_sum
+    # The output:
+    return (regression_model.summary(),     # The summary of the regression
+            df,                             # Table with actual and predicted life expecancy and the error between
+            "ErrorModel:", error_model,     # Calculated ErrorModel
+            "Mean Absolute Error:", mae,    # Calculated MAE
+            "Sum of Errors:", error_sum)    # Calculated Sum of Errors
 
 
 print(model_train_test(df_regr, parameter_list_2))
