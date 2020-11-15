@@ -140,6 +140,7 @@ def model_train_test(df_regr, parameter_list):
         title="Actual vs. Predicted Life Expectancy",
         height=500,
         width=1000,
+        showlegend= True,
     )
     fig.show()
 
@@ -162,6 +163,7 @@ def model_train_test(df_regr, parameter_list):
         title="Error in Actual vs. Predicted Life Expectancy",
         height=500,
         width=1000,
+        showlegend= True,
     )
     fig.show()
 
@@ -177,15 +179,11 @@ def model_train_test(df_regr, parameter_list):
             name="Error in Prediction",
         )
     )
-    fig.add_shape(type='line',
-                x0=0,
-                y0=mae,
-                x1=335,
-                y1=mae,
-                line=dict(color='red',),
-                xref='x',
-                yref='y',
-                name="Mean Absolute Error"
+    fig.add_trace(go.Scatter(
+        x=[0, 335],
+        y=[mae, mae],
+        name="Mean Absolute Error"
+        )
     )
     fig.update_layout(
         yaxis_title="Years",
@@ -194,6 +192,7 @@ def model_train_test(df_regr, parameter_list):
         title="Absolute Error in Actual vs. Predicted Life Expectancy",
         height=500,
         width=1000,
+        showlegend= True,
     )
     fig.show()
 
