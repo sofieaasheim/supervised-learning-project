@@ -63,7 +63,7 @@ parameter_names = [
 ]
 
 # Parameters with linearity
-parameter_list = ["Schooling", "Income", "HIVAIDS", "BMI", "AdultMortality"]
+parameter_list = ["Schooling", "Income", "HIVAIDS", "BMI", "AdultMortality", "Alcohol", "PercentageExpenditure", "Diphtheria"]
 
 """
 REGRESSION PREDICTION MODEL
@@ -129,7 +129,7 @@ app.layout = html.Div(
                         ".",
                         html.Br(),
                         html.Br(),
-                        "After performing many tests, the parameters below turned out to be the most "
+                        "When applying the backwards elimination method, the parameters below turned out to be the most "
                         + "statistically significant parameters from the data set for this predictive model. ",
                         html.Br(),
                         html.Br(),
@@ -152,7 +152,7 @@ app.layout = html.Div(
                 html.Br(),
                 html.H5("HDI"),
                 html.Div(
-                    "Select your Human Development Index (HDI) in terms of income composition of resources:"
+                    "Select the Human Development Index (HDI) in terms of income composition of resources:"
                 ),
                 dcc.Slider(
                     id="hdi-income",
@@ -207,7 +207,7 @@ app.layout = html.Div(
                 dcc.Slider(
                     id="bmi",
                     min=0,
-                    max=100,
+                    max=80,
                     step=1,
                     value=0,
                     marks={
@@ -219,9 +219,7 @@ app.layout = html.Div(
                         50: "50",
                         60: "60",
                         70: "70",
-                        80: "80",
-                        90: "90",
-                        100: "100",
+                        80: "80"
                     },
                 ),
                 html.Br(),
@@ -230,7 +228,7 @@ app.layout = html.Div(
                 dcc.Slider(
                     id="adult-mortality",
                     min=0,
-                    max=1000,
+                    max=800,
                     step=10,
                     value=0,
                     marks={
@@ -242,11 +240,63 @@ app.layout = html.Div(
                         500: "500",
                         600: "600",
                         700: "700",
-                        800: "800",
-                        900: "900",
-                        1000: "1000",
+                        800: "800"
                     },
                 ),
+                html.Br(),
+                html.H5("Alcohol"),
+                html.Div("Select the alcohol consumption recorded per capita (15+) in litres of pure alcohol: "),
+                dcc.Dropdown(
+                    id="alcohol",
+                    options=[{"label": i, "value": i} for i in range(0, 19)],
+                    value=0,
+                ),
+                html.Br(),
+                html.H5("Percentage expenditure"),
+                    html.Div("Select the expenditure on health as percentage of the GDP per capita: "),
+                    dcc.Slider(
+                        id="expenditure",
+                        min=0,
+                        max=5000,
+                        step=100,
+                        value=0,
+                        marks={
+                            0: "0",
+                            500: "500",
+                            1000: "1000",
+                            1500: "1500",
+                            2000: "2000",
+                            2500: "2500",
+                            3000: "3000",
+                            3500: "3500",
+                            4000: "4000",
+                            4500: "4500",
+                            5000: "5000",
+                        },
+                    ),
+                    html.Br(),
+                    html.H5("Diphtheria"),
+                        html.Div("Select the diphtheria tetanus toxoid and pertussis (DTP3) immunization coverage among 1-year-olds (%): "),
+                        dcc.Slider(
+                        id="diphtheria",
+                        min=0,
+                        max=100,
+                        step=1,
+                        value=0,
+                        marks={
+                            0: "0",
+                            10: "10",
+                            20: "20",
+                            30: "30",
+                            40: "40",
+                            50: "50",
+                            60: "60",
+                            70: "70",
+                            80: "80",
+                            90: "90",
+                            100: "100",
+                        },
+                        ),
                 html.Br(),
                 html.H4("The predicted life expectancy in years is: "),
                 html.H3(id="prediction"),
@@ -272,7 +322,7 @@ app.layout = html.Div(
                     value="AdultMortality",
                 ),
                 html.Div(dcc.Graph(id="correlation-plot")),
-                html.H4("Correlations Between All Parameters"),
+                html.H4("Correlations between all parameters"),
                 html.Div(
                     [
                         "This visualization shows a heat map of all the ",
@@ -309,10 +359,13 @@ changes the plots
         Input("hivaids", "value"),
         Input("bmi", "value"),
         Input("adult-mortality", "value"),
+        Input("alcohol", "value"),
+        Input("expenditure", "value"),
+        Input("diphtheria", "value")
     ],
 )
-def get_prediction_result(schooling, hdi_income, hiv_aids, bmi, adult_mortality):
-    selected_values = [schooling, hdi_income, hiv_aids, bmi, adult_mortality]
+def get_prediction_result(schooling, hdi_income, hiv_aids, bmi, adult_mortality, alcohol, expenditure, diphtheria):
+    selected_values = [schooling, hdi_income, hiv_aids, bmi, adult_mortality, alcohol, expenditure, diphtheria]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
 

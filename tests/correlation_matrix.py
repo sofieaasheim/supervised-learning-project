@@ -2,8 +2,10 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 
+data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
+
 # Import the entire data set
-df = pd.read_csv("../data/life-expectancy.csv", sep=",")
+df = pd.read_csv(data_url, sep=",")
 
 # Remove non-numerical parameters and the response
 df.drop(["Country", "Year", "Status", "LifeExpectancy"], axis=1, inplace=True)
