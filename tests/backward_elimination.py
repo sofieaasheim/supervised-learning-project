@@ -5,6 +5,7 @@ import statsmodels.api as sm
 import sklearn
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+from multiple_regression import multiple_regression
 
 """ IMPORT AND PREPROCESS THE DATA """
 
@@ -25,7 +26,7 @@ for col in X:
     fig.show()
 """
 
-""" MAKE THE MULTIPLE REGRESSION PREDICTION MODEL """
+""" BACKWARD ELIMINATION """
 
 """ Step 1: Remove non-linear parameters and check for multicollinearlity
 The first thing we need to do is removing the parameters that do not seem to show any linear
@@ -55,88 +56,18 @@ initial_parameters = [
 # The correlations between all parameters are visualized in correlation_matrix.py and on
 # our website.
 
-
-""" Step 2: Make a multiple regression model for testing and training of the data, and for prediction """
-
-def multiple_regression(df_regr, parameter_list):
-    # Make dataframe for parameters (X) and response (y)
-    X = df_regr[parameter_list]
-    y = df_regr["LifeExpectancy"]
-    X = sm.add_constant(X)
-
-    # Slpit the dataset into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=0
-    )
-
-    # Execute multiple regression using statsmodels on the training set
-    regression_model = sm.OLS(y_train, X_train).fit()
-
-    # Predict using the model and test parameters
-    y_pred = regression_model.predict(X_test)
-
-    # Compare the predicted value against the test value
-    df = pd.DataFrame(
-        {
-            "Actual Life Expectancy": y_test,
-            "Predicted Life Excpectancy": y_pred,
-            "Error": (y_test - y_pred),
-        }
-    )
-
-    # Print the average error between the predicted value and the thest value
-    error = np.mean(np.abs(y_test - y_pred))
-
-    # Plot the predicted and real values against each other
-    x = list(range(0, 330))
-    y_t = y_test
-    y_p = y_pred
-
-    fig = go.Figure(
-        data=go.Scatter(
-            x=x,
-            y=y_t,
-            mode="markers",
-            marker_symbol="x",
-            marker_color="black",
-            opacity=0.6,
-            name="Actual life expectancy",
-        )
-    )
-    fig.add_trace(
-        go.Scatter(
-            x=x,
-            y=y_p,
-            mode="markers",
-            marker_color="crimson",
-            name="Predicted life expectancy",
-        )
-    )
-    fig.update_layout(
-        yaxis_title="Years",
-        font_family="Helvetica",
-        title="Actual vs. predicted life expectancy",
-        height=500,
-        width=1000,
-    )
-    # Uncomment to show prediction vs actual values plot
-    # fig.show()
-
-    return regression_model.summary(), df, "Average Error:", error
-
-
-""" Step 3: Execute multiple linear regression with all the initial parameters described above """
+""" Step 2: Execute multiple linear regression with all the initial parameters described above """
 
 # print(multiple_regression(df_regr, initial_parameters))
 
-""" Step 4: Remove the parameter with the highest p-value. This was the Thinness1_19 parameter which had a
+""" Step 3: Remove the parameter with the highest p-value. This was the Thinness1_19 parameter which had a
  p-value of 0.481. Do the regression again with the rest of the parameters. """
 
 test1_parameters = initial_parameters
 test1_parameters.remove("Thinness1_19")
 # print(multiple_regression(df_regr, test1_parameters))
 
-""" Step 5: Repeat step 4 until all parameters have p-values of less than 0.05. """
+""" Step 4: Repeat step 4 until all parameters have p-values of less than 0.05. """
 
 # The next highest p-value parameter is HepatitisB
 test2_parameters = test1_parameters
@@ -161,15 +92,15 @@ print(multiple_regression(df_regr, test5_parameters))
 # Now all parameters have a p-value of less than 0.05, which indicates that all parameters
 # are likely to be a meaningful addition to the model. The parameters left are:
 
-# AdultMortality, Achohol, PercentageExpenditure, BMI, HIVAIDS, Diptheria, Income, Schooling
+# AdultMortality, Alcohol, PercentageExpenditure, BMI, HIVAIDS, Diphtheria, Income, Schooling
 
-""" Step 6: Try exchanging multicollinear parameter
+""" Step 5: Try exchanging multicollinear parameter
 We can also try to exhange PercentageExpenditure with GDP to see if the model improves: """
 
 test6_parameters = test5_parameters
 test6_parameters.remove("PercentageExpenditure")
 test6_parameters.append("GDP")
-print(multiple_regression(df_regr, test6_parameters))
+# print(multiple_regression(df_regr, test6_parameters))
 
 # The R-squared and adjusted R-squared are so close in values with these two different
 # parameter combinations, so it does (almost) not make any difference

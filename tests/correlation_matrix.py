@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 
+
 data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
 
 # Import the entire data set
@@ -12,6 +13,8 @@ df.drop(["Country", "Year", "Status", "LifeExpectancy"], axis=1, inplace=True)
 
 # Make a parameter df and remove all non-finite values (NaN and +/- infinity)
 parameter_df = df[np.isfinite(df).all(1)]
+
+""" MAKE THE CORRELATION MATRIX FOR ALL PARAMETERS """
 
 # Array for all correlation coefficients using the built-in .corr() method from pandas using
 # Pearson standard correlation coefficient
