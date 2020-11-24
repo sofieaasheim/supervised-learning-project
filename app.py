@@ -196,7 +196,7 @@ app.layout = html.Div(
                                             size="lg"
                                         ),
                                         dbc.Button(
-                                            "Sett inn knappenavn her",
+                                            "The data behind the mode",
                                             id="open-3",
                                             className="mr-1",
                                             color="warning"
@@ -205,7 +205,13 @@ app.layout = html.Div(
                                             [
                                                 dbc.ModalHeader("Overskrift her"),
                                                 dbc.ModalBody(
-                                                    "SKRIV INNHOLDET HER"
+                                                    "The data set contains data from 193 countries, and for each country there are data from the years 2000-2015. "
+                                                    +"The data set contains 2938 rows and 22 columns, where one of the columns is the life expectancy (response) and "
+                                                    +"the 21 remaining columns are the predicting variables (parameters)."
+                                                    +"The parameters includes factors that possibly affects the life expectancy in a country, such as demographic "
+                                                    +"variables, income composition and mortality rates. Some examples of parameters are: the number of infant deaths, "
+                                                    +"alcohol consumption, average Body Mass Index (BMI) and Gross Domestic Product (GDP). Two of the parameters have"
+                                                    +"string values, while the rest have numerical values."
                                                 ),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
