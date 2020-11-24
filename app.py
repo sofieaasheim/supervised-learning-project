@@ -160,7 +160,8 @@ app.layout = html.Div(
                                                     , style={"width": "800px"}),
                                                     html.Br(),
                                                     "Dette er bare et eksempel fra wikipedia hehe skulle bare se hvordan det ble med tekst."
-                                                ]),
+                                                ]), # Dette var en veldig tungvinn måte å gjøre det på.. kan være lurt å sjekke ut
+                                                # Markdown https://dash.plotly.com/dash-core-components/markdown her eller her https://commonmark.org/help/
                                                 dbc.ModalFooter(
                                                     dbc.Button(
                                                         "Close",
