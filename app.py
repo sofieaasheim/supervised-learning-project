@@ -143,9 +143,24 @@ app.layout = html.Div(
                                         dbc.Modal(
                                             [
                                                 dbc.ModalHeader("Machine learning"),
-                                                dbc.ModalBody(
-                                                    "SKRIV INNHOLDET HER"
-                                                ),
+                                                dbc.ModalBody([
+                                                    "Machine learning (ML) is the study of computer algorithms that improve automatically through experience.[1] "
+                                                    + "It is seen as a subset of artificial intelligence. Machine learning algorithms build a model based on sample " 
+                                                    + "data, known as 'training data', in order to make predictions or decisions without being explicitly programmed " 
+                                                    + "to do so.[2] Machine learning algorithms are used in a wide variety of applications, such as email filtering "
+                                                    + "and computer vision, where it is difficult or unfeasible to develop conventional algorithms to perform the needed tasks.",
+                                                    html.Br(), html.Br(),
+                                                    "A subset of machine learning is closely related to computational statistics, which focuses on making predictions "
+                                                    + "using computers; but not all machine learning is statistical learning. The study of mathematical optimization delivers "
+                                                    + "methods, theory and application domains to the field of machine learning. Data mining is a related field of study, "
+                                                    + "focusing on exploratory data analysis through unsupervised learning.[4][5] In its application across business problems, "
+                                                    + "machine learning is also referred to as predictive analytics.",
+                                                    html.Br(), html.Br(),
+                                                    html.Img(src="https://wordstream-files-prod.s3.amazonaws.com/s3fs-public/styles/simple_image/public/images/machine-learning1.png?SnePeroHk5B9yZaLY7peFkULrfW8Gtaf&itok=yjEJbEKD"
+                                                    , style={"width": "800px"}),
+                                                    html.Br(),
+                                                    "Dette er bare et eksempel fra wikipedia hehe skulle bare se hvordan det ble med tekst."
+                                                ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
                                                         "Close",
@@ -155,7 +170,7 @@ app.layout = html.Div(
                                                 ),
                                             ],
                                             id="modal-1",
-                                            size="lg" # Endre størrelsen her - sm, lg eller xl
+                                            size="xl" # Endre størrelsen her - sm, lg eller xl
                                         ),
                                         dbc.Button(
                                             "Linear regression",
