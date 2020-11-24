@@ -13,7 +13,6 @@ import dash_bootstrap_components as dbc
 data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
 
 app = dash.Dash(external_stylesheets=[dbc.themes.LITERA])
-# COSMO og LITERA er finest synes jeg, hva synes dere?
 
 server = app.server
 
@@ -253,7 +252,7 @@ app.layout = html.Div(
                                 dbc.Col(
                                     html.Div(
                                         [
-                                            html.H2("Life Expectancy Prediction"),
+                                            html.H2("Life expectancy prediction"),
                                             html.Div(
                                                 [
                                                     "This is a tool for predicting the average life expectancy of the population in your country. "
@@ -465,7 +464,7 @@ app.layout = html.Div(
                                 dbc.Col(
                                     html.Div(
                                         [
-                                            html.H2("Raw Data Visualizations"),
+                                            html.H2("Raw data visualizations"),
                                             html.H4(
                                                 "Correlation between the parameters and the life expectancy"
                                             ),
