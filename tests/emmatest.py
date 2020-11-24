@@ -60,12 +60,12 @@ X_test = sc_X.transform(X_test)
 
 sc_y = StandardScaler()
 #y_train = sc_y.fit_transform(y_train)
-regr = LinearRegression()
+#regr = LinearRegression()
+regr = sm.OLS(y_train,X_train).fit()
 
-regr.fit(X_train, y_train)
+#regr.fit(X_train, y_train)
 
-
-#print(regr)
+print(regr.summary())
 
 #Make predictions
 expected = y_test
