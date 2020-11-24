@@ -203,7 +203,7 @@ app.layout = html.Div(
                                         ),
                                         dbc.Modal(
                                             [
-                                                dbc.ModalHeader("The data behind the mode"),
+                                                dbc.ModalHeader("The data behind the model"),
                                                 dbc.ModalBody([
                                                     "The data set contains data from 193 countries, and for each country there are data from the years 2000-2015. "
                                                     +"The data set contains 2938 rows and 22 columns, where one of the columns is the life expectancy (response) and "
