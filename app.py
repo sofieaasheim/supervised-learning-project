@@ -455,7 +455,7 @@ app.layout = html.Div(
                                             html.H3(id="prediction"),
                                         ],
                                         style={
-                                            "backgroundColor": "#F7F7F7",
+                                            "backgroundColor": "#E6E6E6",
                                             "padding": "20px 20px 20px 20px",
                                         },
                                     )
@@ -517,7 +517,7 @@ app.layout = html.Div(
                 html.Br(),
             ]
         )
-    ], style={"backgroundColor": "#E6E6E6"}
+    ], style={"backgroundColor": "#F7F7F7"}
 )
 
 """
