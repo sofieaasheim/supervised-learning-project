@@ -1,10 +1,10 @@
 # Supervised Learning Project
 
-This is a project using a multiple regression model from supervised learning to predict life ecpectancy based. These YouTube videos are a nice place to start for understanding the method:
+This is a project using a multiple regression model from supervised learning to predict life ecpectancy. These YouTube videos are a nice place to start for understanding the method:
 - [The Very Basics]
 - [Data Preparation]
 
-
+The project is presented in an interactive [website], where you can predict the life excpectancy based on parameters that you decide the value of. This weside also breifly describe the theory behind the methods used. 
 
 ## Data Sets
 
@@ -17,6 +17,14 @@ More information about the data can be found in the `life-expectancy.txt` file.
 
 ## The Code
 
+You will find the code for the model in the folder `test`, here there are four files: 
+- `backward_elimination.py`: uses the backwatd elimination process to identify the most important parameters so that the model is reliable. This is done in four steps, which are explained as comments in the file. 
+
+- `correlation_matrix.py`: making a correlation matrix showing the correlation, the linear realtionships, between the parameters as a matrix. 
+
+- `error_plots.py`: calculationg the errors, sum of errors, mean average error and plotting these. 
+
+- `multiple_regression.py`: making the resgression model for prediction, as well as predicting and plotting the predicted life expectancy and the responses. 
 
 
 ## Technologies
