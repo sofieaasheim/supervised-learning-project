@@ -141,10 +141,12 @@ app.layout = html.Div(
                                             [
                                                 dbc.ModalHeader("Machine learning"),
                                                 dbc.ModalBody([
-                                                    "Machine learning is a type of artificial intelligence that makes it possible for a computer to automatically improve "
-                                                    + "through experience. This actually means that the computer is able to ",
-                                                    html.B("learn"), 
-                                                    " without beeing explicitly programmed to do so.",
+                                                    "You have probably heard about machine learning before. People say it is the future and they talk about how cool it is, "
+                                                    + "but what is actually machine learning? And why is it so cool? Machine learning is a type of artificial intelligence "
+                                                    + "that makes it possible for a computer to automatically improve through experience. Simply put, this actually means "
+                                                    + "that the computer is able to ",
+                                                    html.B("learn "), 
+                                                    "without being explicitly programmed to do so. Cool.",
                                                     html.Br(), html.Br(),
                                                     "This learning process begins with observations of data – i.e. that the computer looks at examples or patterns in the data, "
                                                     + "or is given some kind of instructions. Then, the computer will use this information to make better decisions in the future "
@@ -237,7 +239,7 @@ app.layout = html.Div(
                                                     + "linear equation to observed data. For the model to be of interest there has to be some significant association between "
                                                     + "the two variables. The equation for the linear regression line takes the form",
                                                     html.Br(), html.Br(),
-                                                    html.I("y"), "= B", html.I("x"), "+ A,",
+                                                    html.I("y"), " = B", html.I("x "), "+ A,",
                                                     html.Br(), html.Br(),
                                                     "where y is the response and x is the parameter. B is a coefficient gives the slope of the line and A is the intercept, "
                                                     + "that is the value of y when x = 0.",
@@ -260,17 +262,53 @@ app.layout = html.Div(
                                             scrollable=True
                                         ),
                                         dbc.Button(
-                                            "Sett inn knappenavn her",
+                                            "Correlation",
                                             id="open-4",
                                             className="mr-1",
                                             color="danger"
                                         ),
                                         dbc.Modal(
                                             [
-                                                dbc.ModalHeader("Overskrift her"),
-                                                dbc.ModalBody(
-                                                    "SKRIV INNHOLDET HER"
-                                                ),
+                                                dbc.ModalHeader("Correlation"),
+                                                dbc.ModalBody([
+                                                    "If you want to do a multiple regression on a data set, you first need to have an understanding of "
+                                                    + "what correlation means. This is imporant in the data preprocessing phase – in other words ",
+                                                    html.I("before "), 
+                                                    "executing the regression. The reason behind this is that for a multiple regression to work properly, "
+                                                    + "all of the parameters included needs to show some sort of linear relationship with the response.",
+                                                    html.Br(), html.Br(),
+                                                    "Correlation means association, and in other words, it is a measure of how much two variables are "
+                                                    + "related to each other. This can be visualized by plotting two variables (in this case, one parameter "
+                                                    + "and the response) in a scatter plot, and see if the points lay close to a line.",
+                                                    html.Br(), html.Br(),
+                                                    html.B("Types of correlation"), html.Br(),
+                                                    "Correlations can be either positive, negative or none.",
+                                                    html.Br(), html.Br(),
+                                                    "If there is a positive correlation, both of the variables move in the same direction. "
+                                                    + "An example of positive correlation can be height and weight – tall people tend to be heavier.",
+                                                    html.Br(), html.Br(),
+                                                    "If the correlation is negative, an increase in one variable is associated with a decrease "
+                                                    + "in the other variable. For example, look at height above the sea level and the temperature: the "
+                                                    + "higher above sea level (increase), the lower the temperature (decrease)",
+                                                    html.Br(), html.Br(),
+                                                    "In many cases, two variables show no correlation at all. This means that there is no "
+                                                    + "relationship between them. This can for example be the relationship between the amount of "
+                                                    + "burgers eaten and the level of intelligence (or…?).", html.Br(),html.Br(),
+                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    , style={"width": "60%", "textAlign": "center"}), html.Br(), html.Br(),
+                                                    "When performing a multiple regression, you should only include parameters that are correlated with the response.",
+                                                    html.Br(), html.Br(),
+                                                    html.B("Correlation coefficients"), html.Br(),
+                                                    "In the graph under the section “Correlations between all parameters” on this website, all the parameter’s correlation coefficients are visualized.",
+                                                    html.Br(), html.Br(),
+                                                    "This is a number between -1 and 1, and it describes how much the parameters are correlated with each other. "
+                                                    + "The further the number is away from 0, the higher the correlation is. A value of +1 indicated a total positive "
+                                                    + "linear correlation, 0 is no correlation and -1 is a total negative linear correlation.",
+                                                    html.Br(), html.Br(),
+                                                    "In this project, we use the Pearson correlation coefficient. If you want to know more about this, check out the ",
+                                                    html.A("Wikipedia", href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"),
+                                                    " page."
+                                                ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
                                                         "Close",

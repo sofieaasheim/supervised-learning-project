@@ -20,7 +20,7 @@ df_regr = df[np.isfinite(df).all(1)]
 parameter_list = [
     "AdultMortality",
     "Alcohol",
-    "PercentageExpenditure",
+    "GDP",
     "BMI",
     "HIVAIDS",
     "Diphtheria",
