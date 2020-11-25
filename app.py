@@ -25,7 +25,6 @@ all_parameters = [
     "AdultMortality",
     "InfantDeaths",
     "Alcohol",
-    "PercentageExpenditure",
     "HepatitisB",
     "Measles",
     "BMI",
@@ -45,13 +44,12 @@ parameter_names = [
     "Adult mortality (per 1000 population)",
     "Infant deaths (per 1000 population)",
     "Alcohol consumption (pure alcohol in litres per capita)",
-    "Percentage expenditure on health of GDP per capita (%)",
     "Hepatitis B immunization coverage among 1-year olds (%)",
     "Measles cases (per 1000 population)",
     "Average BMI of entire population",
     "Under-5 deaths (per 1000 population)",
     "Polio immunization coverage among 1-year olds (%)",
-    "Total expenditure on health (% of total government expenditure)",
+    "Total expenditure on health (% of total expenditure)",
     "Diphtheria (DTP3) immunzation coverage among 1-year olds (%)",
     "HIV/AIDS deaths (per 1000 HIV/AIDS live births 0-4 years)",
     "GDP per capita (USD)",
@@ -70,8 +68,8 @@ parameter_list = [
     "BMI",
     "AdultMortality",
     "Alcohol",
-    "PercentageExpenditure",
     "Diphtheria",
+    "GDP"
 ]
 
 """
@@ -143,24 +141,37 @@ app.layout = html.Div(
                                             [
                                                 dbc.ModalHeader("Machine learning"),
                                                 dbc.ModalBody([
-                                                    "Machine learning (ML) is the study of computer algorithms that improve automatically through experience.[1] "
-                                                    + "It is seen as a subset of artificial intelligence. Machine learning algorithms build a model based on sample " 
-                                                    + "data, known as 'training data', in order to make predictions or decisions without being explicitly programmed " 
-                                                    + "to do so.[2] Machine learning algorithms are used in a wide variety of applications, such as email filtering "
-                                                    + "and computer vision, where it is difficult or unfeasible to develop conventional algorithms to perform the needed tasks.",
+                                                    "Machine learning is a type of artificial intelligence that makes it possible for a computer to automatically improve "
+                                                    + "through experience. This actually means that the computer is able to ",
+                                                    html.B("learn"), 
+                                                    " without beeing explicitly programmed to do so.",
                                                     html.Br(), html.Br(),
-                                                    "A subset of machine learning is closely related to computational statistics, which focuses on making predictions "
-                                                    + "using computers; but not all machine learning is statistical learning. The study of mathematical optimization delivers "
-                                                    + "methods, theory and application domains to the field of machine learning. Data mining is a related field of study, "
-                                                    + "focusing on exploratory data analysis through unsupervised learning.[4][5] In its application across business problems, "
-                                                    + "machine learning is also referred to as predictive analytics.",
+                                                    "This learning process begins with observations of data – i.e. that the computer looks at examples or patterns in the data, "
+                                                    + "or is given some kind of instructions. Then, the computer will use this information to make better decisions in the future "
+                                                    + "based on these experiences. The goal of this is to make the computer’s learning process automatic.",
+                                                    html.Br(), html.Br(),
+                                                    "There are many types of machine learning algorithms and methods, and these are usually split into three main categories:",
+                                                    html.Br(), html.Br(),
+                                                    html.B("Supervised learning"), html.Br(),
+                                                    "Algorithms within the field of supervised learning used labeled examples to learn from. These labeled examples are called "
+                                                    + "«training datasets», and the algorithm uses this data to make predictions about the output values. The machine learning method "
+                                                    + "called multiple regression, which is used in this project, is from the field of supervised learning.",
+                                                    html.Br(), html.Br(),
+                                                    html.B("Unsupervised learning"), html.Br(),
+                                                    "In these algorithms, the information used to train the model is neither classified nor labeled. This means that the computer need "
+                                                    + "to look for a hidden structure or a pattern in the data. It explores the data on its own without any «help» from examples or instructions.",
+                                                    html.Br(), html.Br(),
+                                                    html.B("Reinforcement learning"), html.Br(),
+                                                    "The algoritmhs within the field of reinforcement learning is a bit different from the algorithms in the two categories above. Here, "
+                                                    + "the computer interacts with the environment by producing actions, and from this, finding out what action is the «best» one. The "
+                                                    + "prodecure used trial and error, and gains rewards or penalties based on this. This allows for the computer to automatically determine the ideal behavior.",
+                                                    html.Br(), html.Br(),
+                                                    html.I("The figure below shows the three main categories of machine learning, and the most common methods and algorithms within each of the categories."),
                                                     html.Br(), html.Br(),
                                                     html.Img(src="https://wordstream-files-prod.s3.amazonaws.com/s3fs-public/styles/simple_image/public/images/machine-learning1.png?SnePeroHk5B9yZaLY7peFkULrfW8Gtaf&itok=yjEJbEKD"
-                                                    , style={"width": "800px"}),
-                                                    html.Br(),
-                                                    "Dette er bare et eksempel fra wikipedia hehe skulle bare se hvordan det ble med tekst."
-                                                ]), # Dette var en veldig tungvinn måte å gjøre det på.. kan være lurt å sjekke ut
-                                                # Markdown https://dash.plotly.com/dash-core-components/markdown her eller her https://commonmark.org/help/
+                                                    , style={"width": "100%"}),
+                                                    html.Br()
+                                                ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
                                                         "Close",
@@ -170,48 +181,71 @@ app.layout = html.Div(
                                                 ),
                                             ],
                                             id="modal-1",
-                                            size="xl" # Endre størrelsen her - sm, lg eller xl
+                                            size="lg",
+                                            scrollable=True
                                         ),
                                         dbc.Button(
-                                            "Linear regression",
+                                            "Data set",
                                             id="open-2",
                                             className="mr-1",
                                             color="info"
                                         ),
                                         dbc.Modal(
                                             [
-                                                dbc.ModalHeader("Linear regression"),
-                                                dbc.ModalBody(
-                                                    "SKRIV INNHOLDET HER"
-                                                ),
+                                                dbc.ModalHeader("The data behind the model"),
+                                                dbc.ModalBody([
+                                                    "The data set contains data from 193 countries, and for each country there are data from the years 2000-2015. "
+                                                    + "The data set contains 2938 rows and 22 columns, where one of the columns is the life expectancy (response) and "
+                                                    + "the 21 remaining columns are the predicting variables (parameters).",
+                                                    html.Br(), html.Br(),
+                                                    "The parameters includes factors that possibly affects the life expectancy in a country, such as demographic "
+                                                    + "variables, income composition and mortality rates. Some examples of parameters are: the number of infant deaths, "
+                                                    + "alcohol consumption, average Body Mass Index (BMI) and Gross Domestic Product (GDP). Two of the parameters have"
+                                                    + "string values, while the rest have numerical values."
+                                                ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
                                                         "Close",
                                                         id="close-2",
                                                         className="ml-auto",
+                                                        
                                                     )
                                                 ),
                                             ],
                                             id="modal-2",
-                                            size="lg"
+                                            size="lg",
+                                            scrollable=True
                                         ),
                                         dbc.Button(
-                                            "Data",
+                                            "Regression",
                                             id="open-3",
                                             className="mr-1",
                                             color="warning"
                                         ),
                                         dbc.Modal(
                                             [
-                                                dbc.ModalHeader("The data behind the mode"),
+                                                dbc.ModalHeader("Regression"),
                                                 dbc.ModalBody([
-                                                    "The data set contains data from 193 countries, and for each country there are data from the years 2000-2015. "
-                                                    +"The data set contains 2938 rows and 22 columns, where one of the columns is the life expectancy (response) and "
-                                                    +"the 21 remaining columns are the predicting variables (parameters)."
-                                                    +"The parameters includes factors that possibly affects the life expectancy in a country, such as demographic "
-                                                    +"variables, income composition and mortality rates. Some examples of parameters are: the number of infant deaths, "
-                                                    +"alcohol consumption, average Body Mass Index (BMI) and Gross Domestic Product (GDP). Two of the parameters have"
-                                                    +"string values, while the rest have numerical values."
+                                                    "Regression is a very helpful statistical method used to find trends in data. So why is this helpful? Well, "
+                                                    + "imagine that you guess that there is a connection between how many hours you study and how well you do on the exam; "
+                                                    + "regression analysis can actually help you quantify this. What more, if you make a regression model, it can predict "
+                                                    + "what grade you will get on the next exam by how many hours you study. The accuracy of the prediction will depend upon "
+                                                    + "how good your model is.",
+                                                    html.Br(), html.Br(),
+                                                    "There are several different forms of regression. A linear regression model is a statistical model and one of the basic "
+                                                    + "building blocks of machine learning. The model attempts to model the relationship between two variables by fitting a "
+                                                    + "linear equation to observed data. For the model to be of interest there has to be some significant association between "
+                                                    + "the two variables. The equation for the linear regression line takes the form",
+                                                    html.Br(), html.Br(),
+                                                    html.I("y"), "= B", html.I("x"), "+ A,",
+                                                    html.Br(), html.Br(),
+                                                    "where y is the response and x is the parameter. B is a coefficient gives the slope of the line and A is the intercept, "
+                                                    + "that is the value of y when x = 0.",
+                                                    html.Br(), html.Br(),
+                                                    "To predict life expectancy from multiple variables as we have done in this project, one needs to use multiple linear regression. "
+                                                    + "Multiple linear regression explains the relationship between one dependent variable, a response, and two or more independent "
+                                                    + "variables, parameters.  Even though it is more advanced than linear regression it builds on the same principles. Take a look at "
+                                                    + "section 3.2.1 of our paper for a theoretical explanation."
                                                 ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
@@ -222,7 +256,8 @@ app.layout = html.Div(
                                                 ),
                                             ],
                                             id="modal-3",
-                                            size="lg"
+                                            size="lg",
+                                            scrollable=True
                                         ),
                                         dbc.Button(
                                             "Sett inn knappenavn her",
@@ -245,7 +280,8 @@ app.layout = html.Div(
                                                 ),
                                             ],
                                             id="modal-4",
-                                            size="xl"
+                                            size="lg",
+                                            scrollable=True
                                         ),
                                     ]
                                 ),
@@ -274,9 +310,9 @@ app.layout = html.Div(
                                                     + "statistically significant parameters from the data set for this predictive model. ",
                                                     html.Br(),
                                                     html.Br(),
-                                                    "For more information about the project, check out our GitHub repository: ",
+                                                    "For more information about the project, check out our ",
                                                     html.A(
-                                                        "github.com/sofieaasheim/supervised-learning-project",
+                                                        "GitHub repository",
                                                         href="https://github.com/sofieaasheim/supervised-learning-project",
                                                     ),
                                                     ".",
@@ -405,31 +441,6 @@ app.layout = html.Div(
                                                 value=0,
                                             ),
                                             html.Br(),
-                                            html.H5("Percentage expenditure"),
-                                            html.Div(
-                                                "Select the expenditure on health as percentage of the GDP per capita: "
-                                            ),
-                                            dcc.Slider(
-                                                id="expenditure",
-                                                min=0,
-                                                max=5000,
-                                                step=100,
-                                                value=0,
-                                                marks={
-                                                    0: "0",
-                                                    500: "500",
-                                                    1000: "1000",
-                                                    1500: "1500",
-                                                    2000: "2000",
-                                                    2500: "2500",
-                                                    3000: "3000",
-                                                    3500: "3500",
-                                                    4000: "4000",
-                                                    4500: "4500",
-                                                    5000: "5000",
-                                                },
-                                            ),
-                                            html.Br(),
                                             html.H5("Diphtheria"),
                                             html.Div(
                                                 "Select the diphtheria tetanus toxoid and pertussis (DTP3) immunization coverage among 1-year-olds (%): "
@@ -452,6 +463,31 @@ app.layout = html.Div(
                                                     80: "80",
                                                     90: "90",
                                                     100: "100",
+                                                },
+                                            ),
+                                            html.Br(),
+                                            html.H5("GDP"),
+                                            html.Div(
+                                                "Select the Gross Domestic Product per capita (in USD): "
+                                            ),
+                                            dcc.Slider(
+                                                id="gdp",
+                                                min=0,
+                                                max=100000,
+                                                step=100,
+                                                value=0,
+                                                marks={
+                                                    0: "0",
+                                                    10000: "10000",
+                                                    20000: "20000",
+                                                    30000: "30000",
+                                                    40000: "40000",
+                                                    50000: "50000",
+                                                    60000: "60000",
+                                                    70000: "70000",
+                                                    80000: "80000",
+                                                    90000: "90000",
+                                                    10000: "100000",
                                                 },
                                             ),
                                             html.Br(),
@@ -571,8 +607,8 @@ app.callback(
         Input("bmi", "value"),
         Input("adult-mortality", "value"),
         Input("alcohol", "value"),
-        Input("expenditure", "value"),
         Input("diphtheria", "value"),
+        Input("gdp", "value")
     ],
 )
 def get_prediction_result(
@@ -582,8 +618,8 @@ def get_prediction_result(
     bmi,
     adult_mortality,
     alcohol,
-    expenditure,
     diphtheria,
+    gdp
 ):
     selected_values = [
         schooling,
@@ -592,8 +628,8 @@ def get_prediction_result(
         bmi,
         adult_mortality,
         alcohol,
-        expenditure,
         diphtheria,
+        gdp
     ]
     predicted_grade = linear_prediction_model(parameter_list, selected_values)
     return predicted_grade
@@ -611,7 +647,7 @@ def make_correlation_graph(select_parameter):
         xaxis_title=f"{select_parameter}",
         height=400,
         margin={"t": 20, "b": 20},
-        font_family="Helvetica",
+        #font_family="Helvetica",
     )
     return fig
 
