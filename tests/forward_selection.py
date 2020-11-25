@@ -35,23 +35,12 @@ initial_parameters = [
     "Schooling",
 ]
 
-#X = df_regr[parameter_list]
-#y = df_regr["LifeExpectancy"]
-print(multiple_regression(df_regr, initial_parameters[0]))
-print(multiple_regression(df_regr, initial_parameters[1]))
-print(multiple_regression(df_regr, initial_parameters[2]))
-print(multiple_regression(df_regr, initial_parameters[3]))
-print(multiple_regression(df_regr, initial_parameters[4]))
-print(multiple_regression(df_regr, initial_parameters[5]))
-print(multiple_regression(df_regr, initial_parameters[6]))
-print(multiple_regression(df_regr, initial_parameters[7]))
-print(multiple_regression(df_regr, initial_parameters[8]))
-print(multiple_regression(df_regr, initial_parameters[9]))
-print(multiple_regression(df_regr, initial_parameters[10]))
-print(multiple_regression(df_regr, initial_parameters[11]))
-print(multiple_regression(df_regr, initial_parameters[12]))
+# Look at the p-values for all the initial parameters
+for i in range(12):
+    print(multiple_regression(df_regr, initial_parameters[i]))
 
-
+# As we can see all the p-values are microspopic. 
+# Therefore this is not an optimal method for this data set. 
 
 
 
