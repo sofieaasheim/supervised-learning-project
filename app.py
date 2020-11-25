@@ -187,7 +187,7 @@ app.layout = html.Div(
                                             scrollable=True
                                         ),
                                         dbc.Button(
-                                            "Data set",
+                                            "The data set",
                                             id="open-2",
                                             className="mr-1",
                                             color="info"
