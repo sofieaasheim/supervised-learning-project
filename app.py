@@ -321,6 +321,30 @@ app.layout = html.Div(
                                             size="lg",
                                             scrollable=True
                                         ),
+                                        dbc.Button(
+                                            "What do the results tell us?",
+                                            id="open-5",
+                                            className="mr-1",
+                                            color="primary"
+                                        ),
+                                        dbc.Modal(
+                                            [
+                                                dbc.ModalHeader("What do the results tell us?"),
+                                                dbc.ModalBody([
+                                                    "Sett inn tekst her"
+                                                ]),
+                                                dbc.ModalFooter(
+                                                    dbc.Button(
+                                                        "Close",
+                                                        id="close-5",
+                                                        className="ml-auto",
+                                                    )
+                                                ),
+                                            ],
+                                            id="modal-5",
+                                            size="lg",
+                                            scrollable=True
+                                        ),
                                     ]
                                 ),
                             ), style={"margin": "auto", 'textAlign':'center'},
@@ -633,6 +657,12 @@ app.callback(
     Output("modal-4", "is_open"),
     [Input("open-4", "n_clicks"), Input("close-4", "n_clicks")],
     [State("modal-4", "is_open")],
+)(toggle_modal)
+
+app.callback(
+    Output("modal-5", "is_open"),
+    [Input("open-5", "n_clicks"), Input("close-4", "n_clicks")],
+    [State("modal-5", "is_open")],
 )(toggle_modal)
 
 
