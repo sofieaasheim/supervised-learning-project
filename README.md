@@ -18,13 +18,13 @@ More information about the data can be found in the `life-expectancy.txt` file.
 ## The Code
 
 You will find the code for the model in the folder `test`, here there are four files: 
-- ´backward_elimination.py´ 
+- `backward_elimination.py`: uses the backwatd elimination process to identify the most important parameters so that the model is reliable. This is done in four steps, which are explained as comments in the file. 
 
-- ´correlation_matrix.py´
+- `correlation_matrix.py`: making a correlation matrix showing the correlation, the linear realtionships, between the parameters as a matrix. 
 
-- ´error_plots.py´
+- `error_plots.py`: calculationg the errors, sum of errors, mean average error and plotting these. 
 
-- ´multiple_regression.py´
+- `multiple_regression.py`: making the resgression model for prediction, as well as predicting and plotting the predicted life expectancy and the responses. 
 
 
 ## Technologies
