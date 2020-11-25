@@ -715,7 +715,7 @@ def make_correlation_graph(select_parameter):
         xaxis_title=f"{select_parameter}",
         height=400,
         margin={"t": 20, "b": 20},
-        #font_family="Helvetica",
+        font_family="Helvetica",
     )
     return fig
 
