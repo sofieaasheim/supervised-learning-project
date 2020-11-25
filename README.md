@@ -1,10 +1,14 @@
 # Supervised Learning Project
 
-This is a project using multiple regression from supervised learning to obtain information about student performance. These YouTube videos are a nice place to start for understanding the method:
+This is a project using a multiple regression model from supervised learning to predict life ecpectancy based. These YouTube videos are a nice place to start for understanding the method:
 - [The Very Basics]
 - [Data Preparation]
 
+
+
 ## Data Sets
+
+The data set is form the World Health Organization, WHO. It consists of the life expectancy for 193 countries over 15 years, and different health factors, affecting the life expectancy. The life excpectancy is the respons while the health factors are the parameters. The data set can be found here: [WHO data set].
 
 Relevant data for the project can be found in the `data` folder.
 - `life-expectancy.csv` contains the relevant data set for the project
@@ -72,3 +76,5 @@ The code is automatically deployed when pushing to the **main** branch. The web 
 [statsmodels]: <https://www.statsmodels.org/stable/index.html>
 [virtual environment]: <https://www.geeksforgeeks.org/python-virtual-environment/>
 [GitHub Desktop]: <https://desktop.github.com/>
+[WHO data set]: <https://www.kaggle.com/kumarajarshi/life-expectancy-who?fbclid=IwAR1NONmZtX8ZlR_I3sZBL04069sSHin8VPVsoN3lJehHfnBK0eKXpbEz3-U>
+[website]: <https://tdt4173group9.herokuapp.com/?fbclid=IwAR1BJ5zThOdZ7-g9beNDz3npOeuufJNnWbRmwfDNVxlwD2DuoEwi5lUlsJk>
