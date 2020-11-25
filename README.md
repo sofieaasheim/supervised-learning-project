@@ -1,21 +1,31 @@
-# Supervised learning project
+# Supervised Learning Project
 
-This is a project using multiple regression from supervised learning to obtain information about student performance. These YouTube videos are a nice place to start for understanding the method:
+This is a project using a multiple regression model from supervised learning to predict life ecpectancy. These YouTube videos are a nice place to start for understanding the method:
 - [The Very Basics]
 - [Data Preparation]
 
-## Installation
+The project is presented in an interactive [website], where you can predict the life excpectancy based on parameters that you decide the value of. This weside also breifly describe the theory behind the methods used. 
 
-To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some packages that are necessary for the project:
+## Data Sets
 
-```sh
-pip install pandas
-pip install dash
-pip install statsmodels
-pip install -U scikit-learn
-```
+The data set is form the World Health Organization, WHO. It consists of the life expectancy for 193 countries over 15 years, and different health factors, affecting the life expectancy. The life excpectancy is the respons while the health factors are the parameters. The data set can be found here: [WHO data set].
 
-I recommend downloading and using [GitHub Desktop] when working with git and the project to make things a bit easier for yourself.
+Relevant data for the project can be found in the `data` folder.
+- `life-expectancy.csv` contains the relevant data set for the project
+
+More information about the data can be found in the `life-expectancy.txt` file.
+
+## The Code
+
+You will find the code for the model in the folder `test`, here there are four files: 
+- `backward_elimination.py`: uses the backwatd elimination process to identify the most important parameters so that the model is reliable. This is done in four steps, which are explained as comments in the file. 
+
+- `correlation_matrix.py`: making a correlation matrix showing the correlation, the linear realtionships, between the parameters as a matrix. 
+
+- `error_plots.py`: calculationg the errors, sum of errors, mean average error and plotting these. 
+
+- `multiple_regression.py`: making the resgression model for prediction, as well as predicting and plotting the predicted life expectancy and the responses. 
+
 
 ## Technologies
 In this project, we will use several technologies:
@@ -28,12 +38,18 @@ In this project, we will use several technologies:
 If you are unfamiliar with these, I reccommend doing the [Dash tutorial] and looking at the [10 minutes to pandas] short user guide.
 
 
-## Data sets
+## Installation
 
-Relevant data for the project can be found in the `data` folder.
-- `life-expectancy.csv` contains the relevant data set for the project
+To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some packages that are necessary for the project:
 
-More information about the data can be found in the `life-expectancy.txt` file.
+```sh
+pip install pandas
+pip install dash
+pip install statsmodels
+pip install -U scikit-learn
+```
+
+We recommend downloading and using [GitHub Desktop] when working with git and the project to make things a bit easier for yourself.
 
 
 ## Usage
@@ -68,3 +84,5 @@ The code is automatically deployed when pushing to the **main** branch. The web 
 [statsmodels]: <https://www.statsmodels.org/stable/index.html>
 [virtual environment]: <https://www.geeksforgeeks.org/python-virtual-environment/>
 [GitHub Desktop]: <https://desktop.github.com/>
+[WHO data set]: <https://www.kaggle.com/kumarajarshi/life-expectancy-who?fbclid=IwAR1NONmZtX8ZlR_I3sZBL04069sSHin8VPVsoN3lJehHfnBK0eKXpbEz3-U>
+[website]: <https://tdt4173group9.herokuapp.com/?fbclid=IwAR1BJ5zThOdZ7-g9beNDz3npOeuufJNnWbRmwfDNVxlwD2DuoEwi5lUlsJk>

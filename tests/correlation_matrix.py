@@ -9,7 +9,7 @@ data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-p
 df = pd.read_csv(data_url, sep=",")
 
 # Remove non-numerical parameters and the response
-df.drop(["Country", "Year", "Status", "LifeExpectancy"], axis=1, inplace=True)
+df.drop(["Country", "Year", "Status", "LifeExpectancy", "PercentageExpenditure"], axis=1, inplace=True)
 
 # Make a parameter df and remove all non-finite values (NaN and +/- infinity)
 parameter_df = df[np.isfinite(df).all(1)]
