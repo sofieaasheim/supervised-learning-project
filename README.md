@@ -1,21 +1,19 @@
-# Supervised learning project
+# Supervised Learning Project
 
 This is a project using multiple regression from supervised learning to obtain information about student performance. These YouTube videos are a nice place to start for understanding the method:
 - [The Very Basics]
 - [Data Preparation]
 
-## Installation
+## Data Sets
 
-To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some packages that are necessary for the project:
+Relevant data for the project can be found in the `data` folder.
+- `life-expectancy.csv` contains the relevant data set for the project
 
-```sh
-pip install pandas
-pip install dash
-pip install statsmodels
-pip install -U scikit-learn
-```
+More information about the data can be found in the `life-expectancy.txt` file.
 
-I recommend downloading and using [GitHub Desktop] when working with git and the project to make things a bit easier for yourself.
+## The Code
+
+
 
 ## Technologies
 In this project, we will use several technologies:
@@ -28,12 +26,18 @@ In this project, we will use several technologies:
 If you are unfamiliar with these, I reccommend doing the [Dash tutorial] and looking at the [10 minutes to pandas] short user guide.
 
 
-## Data sets
+## Installation
 
-Relevant data for the project can be found in the `data` folder.
-- `life-expectancy.csv` contains the relevant data set for the project
+To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some packages that are necessary for the project:
 
-More information about the data can be found in the `life-expectancy.txt` file.
+```sh
+pip install pandas
+pip install dash
+pip install statsmodels
+pip install -U scikit-learn
+```
+
+We recommend downloading and using [GitHub Desktop] when working with git and the project to make things a bit easier for yourself.
 
 
 ## Usage
