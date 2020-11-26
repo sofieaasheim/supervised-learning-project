@@ -22,9 +22,11 @@ You will find the code for the model in the folder `test`, here there are four f
 
 - `correlation_matrix.py`: making a correlation matrix showing the correlation, the linear realtionships, between the parameters as a matrix. 
 
-- `error_plots.py`: calculationg the errors, sum of errors, mean average error and plotting these. 
 
-- `multiple_regression.py`: making the resgression model for prediction, as well as predicting and plotting the predicted life expectancy and the responses. 
+- `error_plots.py`: evaluating the model by calculationg the errors, sum of errors, mean average error and plotting these. 
+
+
+- `multiple_regression.py`: making the resgression model for prediction, training and testing it, as well as  plotting the predicted life expectancy and the responses. 
 
 
 ## Technologies
