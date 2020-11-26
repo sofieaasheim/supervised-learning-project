@@ -1,10 +1,14 @@
 # Supervised Learning Project
 
 This repository contains a machine learning project using a multiple regression model to predict life ecpectancy. These YouTube videos are a nice place to start for understanding the method:
+
 - [The Very Basics]
 - [Data Preparation]
 
-The project results are presented in an interactive [website], where you can predict the life excpectancy based on parameters that you decide the value of. This website also breifly describes the theory behind the methods used. 
+
+A report describing the theory behind the project, the data set, the project process, and the results can be found in the blabla.pdf file.
+
+Some of the project results are presented in an interactive website [here], where you can predict the life excpectancy based on parameters that you decide the value of. This website also breifly describes the theory behind the methods used. 
 
 
 ## Data Set
@@ -26,27 +30,29 @@ You will find the code for the model and the experiments used in the project in 
 
 - `backward_elimination.py`: Uses the backward elimination method to identify the most important parameters so that the model is reliable. This is done in four steps, which are explained as comments in the file. 
 
-- `forward_selection.py`: Blabla
-
-- `bidirectional_elimination.py`: Blabla
+- `forward_selection.py`: Experiments with the forward selection method.
 
 - `correlation_matrix.py`: Makes a correlation matrix showing the correlation coeffictients of all the parameter pairs and visualizes it in a heatmap.
 
 - `error_plots.py`: Evaluates the model by calculationg the errors, sum of errors, mean average error and plotting these. 
 
+- `dummy_variables.py`: Experiments with dummy variables on the Country parameter.
+
+The results of the project is, as mentioned, visualized on an interactive website. The code for this website is in the `app.py` file in the main folder.
+
 
 ## Technologies
-In this project, we will use several technologies:
+In this project, the following technologies are used:
 
 - **Python** – The programming language used in the project
-- **Dash** – A framework for building data visualisation web applications
+- **Dash** – A framework for building data visualization web applications
 - **Pandas** – A data analysis Python library
 - [scikit-learn] and [statsmodels] – Tools such as classes and functions for predictive data analysis (useful for the multiple regression analysis)
 
 
 ## Installation
 
-To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some of the packages that are necessary to install for the project to run locally:
+To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository to a new folder. Some of the packages that are necessary to install for the project to run locally:
 
 ```sh
 pip install pandas
@@ -81,7 +87,7 @@ To run the test files, type `python name_of_file.py` in the terminal while in th
 
 ## Deployment
 
-The code is automatically deployed when pushing to the **main** branch. The web page can be found at https://tdt4173group9.herokuapp.com/.
+The code for the website is deployed directly from the **main** branch through Heroku. The web page can be found at https://tdt4173group9.herokuapp.com/.
 
 
 
@@ -94,4 +100,4 @@ The code is automatically deployed when pushing to the **main** branch. The web 
 [virtual environment]: <https://www.geeksforgeeks.org/python-virtual-environment/>
 [GitHub Desktop]: <https://desktop.github.com/>
 [WHO data set]: <https://www.kaggle.com/kumarajarshi/life-expectancy-who?fbclid=IwAR1NONmZtX8ZlR_I3sZBL04069sSHin8VPVsoN3lJehHfnBK0eKXpbEz3-U>
-[website]: <https://tdt4173group9.herokuapp.com/>
+[here]: <https://tdt4173group9.herokuapp.com/>
