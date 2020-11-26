@@ -9,16 +9,15 @@ from sklearn.preprocessing import StandardScaler
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
-# Import the entire data sets
-dataset = pd.read_csv("../supervised-learning-project/data/life-expectancy.csv", sep=",")
+data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
+
+# Import the entire data set
+dataset = pd.read_csv(data_url, sep=",")
 
 # Remove columns - OBS! Many different combinations of parameters have been tried.
 dataset.drop(['Status', 'InfantDeaths', 'Alcohol', 'PercentageExpenditure', 'HepatitisB', 'BMI', 'Measles', 'UnderFiveDeaths', 'Polio', 'TotalExpenditure', 'Diphtheria', 'HIVAIDS', 'GDP', 'Population', 'Thinness1_19', 'Thinness5_9'], axis=1, inplace=True)
 
-# Fix the 'status' column
-#dataset.replace(('Developing', 'Developed'), (0, 1), inplace=True)
-
-# Create initial dataframe
+# Create the initial dataframe
 countrynames = dataset["Country"].unique()
 country_df = pd.DataFrame(countrynames, columns=['Country'])
 # # converting type of columns to 'category'
@@ -51,10 +50,10 @@ X = dataset.iloc[:,1:].values
 X = sm.add_constant(X) #Add constant
 y = dataset.iloc[:, 0].values 
 
-#Splitting data into test and training data
+# Split the data into test and training data sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
-#Scale data
+# Scale data
 sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
