@@ -1,32 +1,38 @@
 # Supervised Learning Project
 
-This is a project using a multiple regression model from supervised learning to predict life ecpectancy. These YouTube videos are a nice place to start for understanding the method:
+This repository contains a machine learning project using a multiple regression model to predict life ecpectancy. These YouTube videos are a nice place to start for understanding the method:
 - [The Very Basics]
 - [Data Preparation]
 
-The project is presented in an interactive [website], where you can predict the life excpectancy based on parameters that you decide the value of. This weside also breifly describe the theory behind the methods used. 
+The project results are presented in an interactive [website], where you can predict the life excpectancy based on parameters that you decide the value of. This website also breifly describes the theory behind the methods used. 
 
-## Data Sets
 
-The data set is form the World Health Organization, WHO. It consists of the life expectancy for 193 countries over 15 years, and different health factors, affecting the life expectancy. The life excpectancy is the respons while the health factors are the parameters. The data set can be found here: [WHO data set].
+## Data Set
 
-Relevant data for the project can be found in the `data` folder.
-- `life-expectancy.csv` contains the relevant data set for the project
+The data set used in the project is from the World Health Organization (WHO). It consists of the life expectancy for 193 countries over a period of 15 years, and different health factors, affecting the life expectancy. The life excpectancy is the response while the health factors are the parameters. The data set can be found here: [WHO data set].
 
-More information about the data can be found in the `life-expectancy.txt` file.
+Relevant data for the project can be found in the `data` folder:
+
+- `life-expectancy.csv` contains the relevant data set for the project.
+
+- `life-expectancy.txt` contains information about all the variables in the data set.
+
 
 ## The Code
 
-You will find the code for the model in the folder `test`, here there are four files: 
-- `backward_elimination.py`: uses the backwatd elimination process to identify the most important parameters so that the model is reliable. This is done in four steps, which are explained as comments in the file. 
+You will find the code for the model and the experiments used in the project in the folder `test`. Here there are six files: 
 
-- `correlation_matrix.py`: making a correlation matrix showing the correlation, the linear realtionships, between the parameters as a matrix. 
+- `multiple_regression.py`: The multiple regression model is made in the function `multiple_regression(df_regr, parameter_list)`. This function takes a data frame and a list of parameter names as arguments. First, it splits the data in training and testing sets, then performs a multiple regression as well as  plotting the predicted life expectancy and the responses. This function is imported to and used in some of the other files in the project.
 
+- `backward_elimination.py`: Uses the backward elimination method to identify the most important parameters so that the model is reliable. This is done in four steps, which are explained as comments in the file. 
 
-- `error_plots.py`: evaluating the model by calculationg the errors, sum of errors, mean average error and plotting these. 
+- `forward_selection.py`: Blabla
 
+- `bidirectional_elimination.py`: Blabla
 
-- `multiple_regression.py`: making the resgression model for prediction, training and testing it, as well as  plotting the predicted life expectancy and the responses. 
+- `correlation_matrix.py`: Makes a correlation matrix showing the correlation coeffictients of all the parameter pairs and visualizes it in a heatmap.
+
+- `error_plots.py`: Evaluates the model by calculationg the errors, sum of errors, mean average error and plotting these. 
 
 
 ## Technologies
@@ -37,12 +43,10 @@ In this project, we will use several technologies:
 - **Pandas** – A data analysis Python library
 - [scikit-learn] and [statsmodels] – Tools such as classes and functions for predictive data analysis (useful for the multiple regression analysis)
 
-If you are unfamiliar with these, I reccommend doing the [Dash tutorial] and looking at the [10 minutes to pandas] short user guide.
-
 
 ## Installation
 
-To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some packages that are necessary for the project:
+To contribute to the project, first make a project directory locally on your computer. Inside this, create a [virtual environment] for the project. In this project directory, you should also clone this repository. Some of the packages that are necessary to install for the project to run locally:
 
 ```sh
 pip install pandas
@@ -51,25 +55,28 @@ pip install statsmodels
 pip install -U scikit-learn
 ```
 
-We recommend downloading and using [GitHub Desktop] when working with git and the project to make things a bit easier for yourself.
+The rest of the packages needed for the project can be found in the `requirements.txt` file.
 
 
 ## Usage
 
-- The finished product will be in the `app.py` file. If you edit this, make sure to push to the **tests** branch before pushing to **main**.
+- The website is made in the `app.py` file.
 - For experimentation and testing, create `.py` files in the `tests` folder.
 
-To import the data sets to the testing files in the `tests` folder, i.e. use the following:
+To import the enitre data set to a testing file in the `tests` folder, i.e. use the following:
 
 ```sh
 import pandas as pd
 
-df = pd.read_csv("../data/life-expectancy.csv", sep=",")
+data_url = "https://raw.githubusercontent.com/sofieaasheim/supervised-learning-project/main/data/life-expectancy.csv"
+df = pd.read_csv(data_url, sep=",")
 ```
 
 When performing tests, make sure that you only push to the **tests** branch (or make a new branch). The **main** branch should only be used for pushing finished stuff.
 
 To run the application locally, type `python app.py` in the terminal while in the **supervised-learning-project** folder and go to http://127.0.0.1:8050/ in your browser.
+
+To run the test files, type `python name_of_file.py` in the terminal while in the **tests** folder.
 
 
 ## Deployment
@@ -87,4 +94,4 @@ The code is automatically deployed when pushing to the **main** branch. The web 
 [virtual environment]: <https://www.geeksforgeeks.org/python-virtual-environment/>
 [GitHub Desktop]: <https://desktop.github.com/>
 [WHO data set]: <https://www.kaggle.com/kumarajarshi/life-expectancy-who?fbclid=IwAR1NONmZtX8ZlR_I3sZBL04069sSHin8VPVsoN3lJehHfnBK0eKXpbEz3-U>
-[website]: <https://tdt4173group9.herokuapp.com/?fbclid=IwAR1BJ5zThOdZ7-g9beNDz3npOeuufJNnWbRmwfDNVxlwD2DuoEwi5lUlsJk>
+[website]: <https://tdt4173group9.herokuapp.com/>
