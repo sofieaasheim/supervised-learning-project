@@ -37,7 +37,7 @@ enc = OneHotEncoder(handle_unknown='ignore')
 # Pass country-cat column (label encoded values of country)
 enc_df1 = pd.DataFrame(enc.fit_transform(country_df[['Country_Cat']]).toarray())
 
-# Merhge with country_df on key values
+# Merge with country_df on key values
 country_df = country_df.join(enc_df1)
 country_df
 

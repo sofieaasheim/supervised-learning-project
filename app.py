@@ -155,7 +155,7 @@ app.layout = html.Div(
                                                     "There are many types of machine learning algorithms and methods, and these are usually split into three main categories:",
                                                     html.Br(), html.Br(),
                                                     html.B("Supervised learning"), html.Br(),
-                                                    "Algorithms within the field of supervised learning used labeled examples to learn from. These labeled examples are called "
+                                                    "Algorithms within the field of supervised learning uses labeled examples to learn from. These labeled examples are called "
                                                     + "«training datasets», and the algorithm uses this data to make predictions about the output values. The machine learning method "
                                                     + "called multiple regression, which is used in this project, is from the field of supervised learning.",
                                                     html.Br(), html.Br(),
@@ -170,7 +170,7 @@ app.layout = html.Div(
                                                     html.Br(), html.Br(),
                                                     html.I("The figure below shows the three main categories of machine learning, and the most common methods and algorithms within each of the categories."),
                                                     html.Br(), html.Br(),
-                                                    html.Img(src="https://wordstream-files-prod.s3.amazonaws.com/s3fs-public/styles/simple_image/public/images/machine-learning1.png?SnePeroHk5B9yZaLY7peFkULrfW8Gtaf&itok=yjEJbEKD"
+                                                    html.Img(src="https://github.com/sofieaasheim/supervised-learning-project/blob/main/images/machine_learning.png?raw=true"
                                                     , style={"width": "100%"}),
                                                     html.Br()
                                                 ]),
@@ -196,14 +196,18 @@ app.layout = html.Div(
                                             [
                                                 dbc.ModalHeader("The data behind the model"),
                                                 dbc.ModalBody([
-                                                    "The data set contains data from 193 countries, and for each country there are data from the years 2000-2015. "
+                                                    "The data set used in this project contains data from 193 countries, and for each country there are data from the years 2000-2015. "
                                                     + "The data set contains 2938 rows and 22 columns, where one of the columns is the life expectancy (response) and "
                                                     + "the 21 remaining columns are the predicting variables (parameters).",
                                                     html.Br(), html.Br(),
-                                                    "The parameters includes factors that possibly affects the life expectancy in a country, such as demographic "
+                                                    "The parameters include factors that possibly affects the life expectancy in a country, such as demographic "
                                                     + "variables, income composition and mortality rates. Some examples of parameters are: the number of infant deaths, "
-                                                    + "alcohol consumption, average Body Mass Index (BMI) and Gross Domestic Product (GDP). Two of the parameters have"
-                                                    + "string values, while the rest have numerical values."
+                                                    + "alcohol consumption, average Body Mass Index (BMI) and Gross Domestic Product (GDP). All parameters included on "
+                                                    + "this website have only numeric values.",
+                                                    html.Br(), html.Br(),
+                                                    "For a more detailed description of the response and parameters, check out ",
+                                                    html.A("this", href="https://github.com/sofieaasheim/supervised-learning-project/blob/main/data/life-expectancy.txt"),
+                                                    " .txt file in our GitHub repository."
                                                 ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
@@ -244,10 +248,15 @@ app.layout = html.Div(
                                                     "where y is the response and x is the parameter. B is a coefficient gives the slope of the line and A is the intercept, "
                                                     + "that is the value of y when x = 0.",
                                                     html.Br(), html.Br(),
+                                                    html.Img(src="https://github.com/sofieaasheim/supervised-learning-project/blob/main/images/linear_regression.png?raw=true",
+                                                    style={"width": "100%", "textAlign": "center"}),
+                                                    html.I("This is an example of a simple linear regression, where the data is the blue dots and the red line is the regression line."),
+                                                    html.Br(), html.Br(),
                                                     "To predict life expectancy from multiple variables as we have done in this project, one needs to use multiple linear regression. "
                                                     + "Multiple linear regression explains the relationship between one dependent variable, a response, and two or more independent "
-                                                    + "variables, parameters.  Even though it is more advanced than linear regression it builds on the same principles. Take a look at "
-                                                    + "section 3.2.1 of our paper for a theoretical explanation."
+                                                    + "variables, parameters.  Even though it is more advanced than linear regression it is built on the same principles. Take a look at "
+                                                    + "section 3.2.1 of our paper for a theoretical explanation.",
+
                                                 ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
@@ -294,16 +303,18 @@ app.layout = html.Div(
                                                     "In many cases, two variables show no correlation at all. This means that there is no "
                                                     + "relationship between them. This can for example be the relationship between the amount of "
                                                     + "burgers eaten and the level of intelligence (or…?).", html.Br(),html.Br(),
-                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
-                                                    , style={"width": "60%", "textAlign": "center"}), html.Br(), html.Br(),
+                                                    html.Img(src="https://github.com/sofieaasheim/supervised-learning-project/blob/main/images/correlation.png?raw=true"
+                                                    , style={"width": "50%"}), html.Br(),
+                                                    html.I("Here are some different types of correlation."),
+                                                    html.Br(), html.Br(),
                                                     "When performing a multiple regression, you should only include parameters that are correlated with the response.",
                                                     html.Br(), html.Br(),
                                                     html.B("Correlation coefficients"), html.Br(),
                                                     "In the graph under the section “Correlations between all parameters” on this website, all the parameter’s correlation coefficients are visualized.",
                                                     html.Br(), html.Br(),
                                                     "This is a number between -1 and 1, and it describes how much the parameters are correlated with each other. "
-                                                    + "The further the number is away from 0, the higher the correlation is. A value of +1 indicated a total positive "
-                                                    + "linear correlation, 0 is no correlation and -1 is a total negative linear correlation.",
+                                                    + "The further the number is away from 0, the higher the correlation is. A value of +1 indicates a total positive "
+                                                    + "linear correlation, 0 is no correlation and -1 indicates a total negative linear correlation.",
                                                     html.Br(), html.Br(),
                                                     "In this project, we use the Pearson correlation coefficient. If you want to know more about this, check out the ",
                                                     html.A("Wikipedia", href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"),
@@ -337,22 +348,22 @@ app.layout = html.Div(
                                                     html.Br(), html.Br(),
                                                     "Set all the parameters back to default value (zero) and look at the value of the life expectancy:",
                                                     html.Br(), html.Br(),
-                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    html.Img(src="https://github.com/sofieaasheim/supervised-learning-project/blob/main/images/predicted_0.png?raw=true"
                                                     , style={"width": "60%", "textAlign": "center"}),
                                                     html.Br(), html.Br(),
                                                     "Now, increase schooling by, for example, 5 years...",
                                                     html.Br(), html.Br(),
-                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    html.Img(src="https://github.com/sofieaasheim/supervised-learning-project/blob/main/images/schooling_5.png?raw=true"
                                                     , style={"width": "60%", "textAlign": "center"}),
                                                     html.Br(), html.Br(),
                                                     "… and then look at the predicted life expectancy again:",
                                                     html.Br(), html.Br(),
-                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    html.Img(src="https://github.com/sofieaasheim/supervised-learning-project/blob/main/images/predicted_1.png?raw=true"
                                                     , style={"width": "60%", "textAlign": "center"}),
                                                     html.Br(), html.Br(),
-                                                    "If you increase the schooling years even more, the predicted life expectancy will keep increasing as well.",
+                                                    "If you increase the amount of schooling years even more, the predicted life expectancy will keep increasing as well.",
                                                     html.Br(), html.Br(),
-                                                    "This shows that the average numer of years of schooling in a country actually increases the life expectancy! "
+                                                    "This shows that the average number of years of schooling in a country actually increases the life expectancy! "
                                                     + "You can also try to do some more experiments with the parameter values to see how the life expectancy changes. "
                                                     + "What is the highest value you are able to reach?"
                                                 ]),
@@ -391,8 +402,8 @@ app.layout = html.Div(
                                                     ".",
                                                     html.Br(),
                                                     html.Br(),
-                                                    "When applying the backwards elimination method, the parameters below turned out to be the most "
-                                                    + "statistically significant parameters from the data set for this predictive model. ",
+                                                    "When applying the backward elimination method, the parameters below turned out to be the most "
+                                                    + "statistically significant ones for a multiple regression model. ",
                                                     html.Br(),
                                                     html.Br(),
                                                     "For more information about the project, check out our ",

@@ -37,7 +37,7 @@ def error_plots(df_regr, parameter_list):
     y = df_regr["LifeExpectancy"]
     X = sm.add_constant(X)
 
-    # Slpitting the dataset into training and test sets
+    # Slpit the dataset into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=0
     )
@@ -45,10 +45,10 @@ def error_plots(df_regr, parameter_list):
     # Execute multiple regression using statsmodels on the training set
     regression_model = sm.OLS(y_train, X_train).fit()
 
-    # Predicting using the model and test parameters
+    # Predict using the model and test parameters
     y_pred = regression_model.predict(X_test)
 
-    # Comparing the predicted value against the test value
+    # Compare the predicted value against the test value
     df = pd.DataFrame(
         {
             "Actual Life Expectancy": y_test,
@@ -57,16 +57,16 @@ def error_plots(df_regr, parameter_list):
         }
     )
 
-    # Calculating the error model
+    # Calculate the error model
     error_model = np.sum((y_test - y_pred) ** 2)
 
-    # Calculating the sum of average error
+    # Calculate the sum of average error
     error_sum = np.sum(y_test - y_pred)
 
-    # Calculating the Mean Absolute Error
+    # Calculate the Mean Absolute Error
     mae = mean_absolute_error(y_pred, y_test)
 
-    # Plotting the predicted and real values against each other
+    # Plot the predicted and real values against each other
     x = list(range(0, 330))
     y_t = y_test
     y_p = y_pred
@@ -102,7 +102,7 @@ def error_plots(df_regr, parameter_list):
     )
     fig.show()
 
-    # Plotting the error values
+    # Plot the error values
     fig = go.Figure(
         data=go.Scatter(
             x=list(range(0, 330)),
@@ -125,7 +125,7 @@ def error_plots(df_regr, parameter_list):
     )
     fig.show()
 
-    # Plotting the absolute error values
+    # Plot the absolute error values
     fig = go.Figure(
         data=go.Scatter(
             x=list(range(0, 330)),
