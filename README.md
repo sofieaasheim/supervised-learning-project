@@ -22,7 +22,7 @@ Relevant data for the project can be found in the `data` folder:
 - `life-expectancy.txt` contains information about all the variables in the data set.
 
 
-## The Code
+## Code
 
 You will find the code for the model and the experiments used in the project in the folder `tests`. Here there are six files: 
 
