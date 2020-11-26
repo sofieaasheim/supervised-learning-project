@@ -20,7 +20,7 @@ Relevant data for the project can be found in the `data` folder:
 
 ## The Code
 
-You will find the code for the model and the experiments used in the project in the folder `test`. Here there are six files: 
+You will find the code for the model and the experiments used in the project in the folder `tests`. Here there are six files: 
 
 - `multiple_regression.py`: The multiple regression model is made in the function `multiple_regression(df_regr, parameter_list)`. This function takes a data frame and a list of parameter names as arguments. First, it splits the data in training and testing sets, then performs a multiple regression as well as  plotting the predicted life expectancy and the responses. This function is imported to and used in some of the other files in the project.
 
@@ -74,9 +74,9 @@ df = pd.read_csv(data_url, sep=",")
 
 When performing tests, make sure that you only push to the **tests** branch (or make a new branch). The **main** branch should only be used for pushing finished stuff.
 
-To run the application locally, type `python app.py` in the terminal while in the **supervised-learning-project** folder and go to http://127.0.0.1:8050/ in your browser.
+To run the application locally, type `python app.py` in the terminal while in the `supervised-learning-project` folder and go to http://127.0.0.1:8050/ in your browser.
 
-To run the test files, type `python name_of_file.py` in the terminal while in the **tests** folder.
+To run the test files, type `python name_of_file.py` in the terminal while in the `tests` folder.
 
 
 ## Deployment
