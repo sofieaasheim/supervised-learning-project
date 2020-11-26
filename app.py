@@ -331,7 +331,30 @@ app.layout = html.Div(
                                             [
                                                 dbc.ModalHeader("What do the results tell us?"),
                                                 dbc.ModalBody([
-                                                    "Sett inn tekst her"
+                                                    "As you can see, multiple regression can be used to predict life expectancy from multiple parameters. "
+                                                    + "However, that is not all it can do! By doing a few experiments here we can find out exactly how much "
+                                                    + "i.e. schooling affects the life expectancy. Interested?",
+                                                    html.Br(), html.Br(),
+                                                    "Set all the parameters back to default value (zero) and look at the value of the life expectancy:",
+                                                    html.Br(), html.Br(),
+                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    , style={"width": "60%", "textAlign": "center"}),
+                                                    html.Br(), html.Br(),
+                                                    "Now, increase schooling by, for example, 5 years...",
+                                                    html.Br(), html.Br(),
+                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    , style={"width": "60%", "textAlign": "center"}),
+                                                    html.Br(), html.Br(),
+                                                    "… and then look at the predicted life expectancy again:",
+                                                    html.Br(), html.Br(),
+                                                    html.Img(src="https://www.biologyforlife.com/uploads/2/2/3/9/22392738/correlation_1.jpg?688"
+                                                    , style={"width": "60%", "textAlign": "center"}),
+                                                    html.Br(), html.Br(),
+                                                    "If you increase the schooling years even more, the predicted life expectancy will keep increasing as well.",
+                                                    html.Br(), html.Br(),
+                                                    "This shows that the average numer of years of schooling in a country actually increases the life expectancy! "
+                                                    + "You can also try to do some more experiments with the parameter values to see how the life expectancy changes. "
+                                                    + "What is the highest value you are able to reach?"
                                                 ]),
                                                 dbc.ModalFooter(
                                                     dbc.Button(
@@ -661,7 +684,7 @@ app.callback(
 
 app.callback(
     Output("modal-5", "is_open"),
-    [Input("open-5", "n_clicks"), Input("close-4", "n_clicks")],
+    [Input("open-5", "n_clicks"), Input("close-5", "n_clicks")],
     [State("modal-5", "is_open")],
 )(toggle_modal)
 
